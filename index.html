@@ -1,1468 +1,1649 @@
 <!DOCTYPE html>
 <html lang="pt">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>DS Private — Simulador de Troca de Casa</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-:root {
-  --bege: #F5F0E8;
-  --bege2: #EDE6D5;
-  --bege3: #E4DBС6;
-  --ouro: #C9A96E;
-  --ouro2: #A8854A;
-  --ouro3: #E8D4AA;
-  --preto: #110E0B;
-  --carvao: #1E1A16;
-  --cinza: #7A746D;
-  --branco: #FDFAF4;
-  --verde: #1F5C3A;
-  --azul: #1A3F6E;
-}
-
-*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-
-html { scroll-behavior: smooth; }
-
-body {
-  font-family: 'DM Sans', sans-serif;
-  background: var(--bege);
-  color: var(--preto);
-  overflow-x: hidden;
-  min-height: 100vh;
-}
-
-/* ── HERO ─────────────────────────────────── */
-#hero {
-  min-height: 100svh;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-/* foto a full-bleed */
-.hero-img {
-  position: absolute;
-  inset: 0;
-  background: url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=900&q=85') center 40%/cover no-repeat;
-}
-
-/* gradiente escuro em baixo para legibilidade do texto */
-.hero-grad {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(14,11,8,.55) 0%,
-    rgba(14,11,8,.3) 35%,
-    rgba(14,11,8,.55) 65%,
-    rgba(14,11,8,.92) 100%
-  );
-}
-
-/* barra de topo */
-.hero-topbar {
-  position: relative; z-index: 2;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 1.3rem 1.5rem;
-}
-
-.logo { display: flex; align-items: center; gap: .6rem; }
-
-.logo-mark {
-  width: 34px; height: 34px;
-  background: var(--ouro);
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Playfair Display', serif;
-  font-weight: 700; font-size: .9rem;
-  color: var(--carvao);
-  clip-path: polygon(7px 0%, 100% 0%, calc(100% - 7px) 100%, 0% 100%);
-}
-
-.logo-name {
-  font-family: 'Playfair Display', serif;
-  font-size: .95rem; font-weight: 400;
-  color: rgba(245,240,232,.9);
-  letter-spacing: .14em; text-transform: uppercase;
-}
-
-.hero-tag {
-  font-size: .6rem; letter-spacing: .16em;
-  text-transform: uppercase;
-  color: rgba(201,169,110,.7);
-  background: rgba(201,169,110,.1);
-  border: 1px solid rgba(201,169,110,.25);
-  padding: .25rem .6rem;
-}
-
-/* conteúdo principal — empurrado para o fundo */
-.hero-body {
-  position: relative; z-index: 2;
-  flex: 1;
-  display: flex; flex-direction: column;
-  justify-content: flex-end;
-  padding: 1.5rem 1.5rem 2rem;
-}
-
-/* pill de credibilidade */
-.hero-pill {
-  display: inline-flex; align-items: center; gap: .5rem;
-  background: rgba(201,169,110,.15);
-  border: 1px solid rgba(201,169,110,.35);
-  padding: .35rem .8rem;
-  margin-bottom: 1.2rem;
-  width: fit-content;
-}
-
-.hero-pill-dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--ouro);
-  flex-shrink: 0;
-}
-
-.hero-pill-text {
-  font-size: .65rem; letter-spacing: .12em;
-  text-transform: uppercase; font-weight: 500;
-  color: var(--ouro3);
-}
-
-.hero-h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2rem, 7vw, 2.6rem);
-  font-weight: 500;
-  color: #F5F0E8;
-  line-height: 1.2;
-  margin-bottom: .9rem;
-  letter-spacing: -.015em;
-}
-
-.hero-h1 em {
-  font-style: italic;
-  font-weight: 400;
-  color: var(--ouro3);
-}
-
-.hero-sub {
-  font-size: .88rem;
-  font-weight: 300;
-  color: rgba(245,240,232,.6);
-  line-height: 1.65;
-  margin-bottom: 1.8rem;
-}
-
-/* botão CTA — largura total no mobile */
-.btn-hero {
-  display: flex; align-items: center; justify-content: center; gap: .7rem;
-  background: var(--ouro);
-  color: var(--carvao);
-  font-family: 'DM Sans', sans-serif;
-  font-size: .82rem; font-weight: 600;
-  letter-spacing: .1em; text-transform: uppercase;
-  padding: 1.05rem 1.5rem;
-  border: none; cursor: pointer;
-  width: 100%;
-  transition: background .2s, transform .15s;
-}
-
-.btn-hero:hover { background: var(--ouro2); transform: translateY(-1px); }
-.btn-hero:active { transform: scale(.98); }
-.btn-hero svg { flex-shrink: 0; }
-
-/* rodapé confiança */
-.hero-trust {
-  position: relative; z-index: 2;
-  display: flex; align-items: center; justify-content: center; gap: 1rem;
-  padding: 1rem 1.5rem;
-  border-top: 1px solid rgba(201,169,110,.12);
-  background: rgba(14,11,8,.5);
-}
-
-.trust-item {
-  display: flex; align-items: center; gap: .4rem;
-  font-size: .68rem; font-weight: 400;
-  color: rgba(245,240,232,.45);
-  letter-spacing: .04em;
-}
-
-.trust-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--ouro); opacity: .5; flex-shrink: 0; }
-
-/* linha dourada fina a separar hero-body do trust */
-.hero-line {
-  display: none;
-}
-
-/* ── QUIZ ─────────────────────────────────── */
-#quiz {
-  display: none;
-  min-height: 100svh;
-  background: var(--bege);
-}
-
-/* progress strip */
-.progress-strip {
-  position: sticky; top: 0; z-index: 50;
-  background: var(--bege2);
-  height: 3px;
-}
-
-.progress-fill {
-  height: 100%;
-  background: var(--ouro);
-  transition: width .5s cubic-bezier(.4,0,.2,1);
-}
-
-/* quiz topbar */
-.quiz-topbar {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 1.1rem 1.5rem;
-  border-bottom: 1px solid rgba(110,100,90,.12);
-}
-
-.quiz-logo-mark {
-  display: flex; align-items: center; gap: .5rem;
-}
-
-.q-logo-box {
-  width: 28px; height: 28px;
-  background: var(--preto);
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Playfair Display', serif;
-  font-weight: 700; font-size: .75rem;
-  color: var(--ouro);
-  clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
-}
-
-.q-logo-name {
-  font-family: 'Playfair Display', serif;
-  font-size: .8rem; font-weight: 400;
-  color: var(--preto); letter-spacing: .1em;
-  text-transform: uppercase;
-}
-
-.step-counter {
-  font-size: .68rem;
-  letter-spacing: .15em;
-  text-transform: uppercase;
-  color: var(--cinza);
-}
-
-/* quiz main */
-.quiz-main {
-  padding: 0 1.5rem 5rem;
-  max-width: 520px;
-  margin: 0 auto;
-}
-
-/* step screen */
-.step { display: none; }
-.step.active { display: block; }
-
-/* step number + title block */
-.step-head {
-  padding: 2rem 0 1.5rem;
-  border-bottom: 1px solid rgba(110,100,90,.1);
-  margin-bottom: 1.8rem;
-}
-
-.step-num {
-  font-family: 'Playfair Display', serif;
-  font-size: 3.5rem;
-  font-weight: 700;
-  color: rgba(201,169,110,.18);
-  line-height: 1;
-  letter-spacing: -.03em;
-  margin-bottom: .1rem;
-}
-
-.step-q {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(1.25rem, 4.5vw, 1.55rem);
-  font-weight: 400;
-  color: var(--preto);
-  line-height: 1.3;
-}
-
-.step-hint {
-  font-size: .75rem;
-  color: var(--cinza);
-  font-weight: 300;
-  margin-top: .35rem;
-  letter-spacing: .02em;
-}
-
-/* sub-question divider */
-.sub-q {
-  margin-top: 2rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid rgba(110,100,90,.08);
-}
-
-.sub-q-label {
-  font-size: .68rem;
-  letter-spacing: .15em;
-  text-transform: uppercase;
-  color: var(--ouro2);
-  font-weight: 500;
-  margin-bottom: .9rem;
-}
-
-/* OPTION CARDS — grid */
-.opt-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: .6rem;
-  margin-bottom: .5rem;
-}
-
-.opt-grid.four { grid-template-columns: repeat(4, 1fr); }
-
-.opt-card {
-  border: 1px solid rgba(110,100,90,.18);
-  background: var(--branco);
-  padding: 1rem .8rem;
-  cursor: pointer;
-  text-align: center;
-  transition: border-color .18s, background .18s, transform .15s;
-  user-select: none;
-  position: relative;
-}
-
-.opt-card:active { transform: scale(.97); }
-
-.opt-card.sel {
-  border-color: var(--ouro);
-  background: rgba(201,169,110,.07);
-}
-
-.opt-card.sel::after {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: var(--ouro);
-}
-
-.opt-icon {
-  font-size: 1.5rem;
-  line-height: 1;
-  margin-bottom: .45rem;
-  display: block;
-}
-
-.opt-label {
-  font-size: .75rem;
-  font-weight: 500;
-  color: var(--preto);
-  letter-spacing: .04em;
-}
-
-/* OPTION LIST — radio style */
-.opt-list { display: flex; flex-direction: column; gap: .45rem; }
-
-.opt-row {
-  display: flex; align-items: center; gap: .9rem;
-  padding: .85rem 1rem;
-  border: 1px solid rgba(110,100,90,.15);
-  background: var(--branco);
-  cursor: pointer;
-  transition: border-color .18s, background .18s;
-  user-select: none;
-}
-
-.opt-row:hover { border-color: rgba(201,169,110,.5); background: rgba(201,169,110,.04); }
-
-.opt-row.sel {
-  border-color: var(--ouro);
-  background: rgba(201,169,110,.07);
-}
-
-.opt-radio {
-  width: 16px; height: 16px;
-  border: 1.5px solid rgba(110,100,90,.4);
-  border-radius: 50%;
-  flex-shrink: 0;
-  position: relative;
-  transition: border-color .18s;
-}
-
-.opt-row.sel .opt-radio {
-  border-color: var(--ouro);
-  background: var(--ouro);
-}
-
-.opt-row.sel .opt-radio::after {
-  content: '';
-  position: absolute;
-  inset: 3px;
-  border-radius: 50%;
-  background: var(--carvao);
-}
-
-.opt-text {
-  font-size: .82rem;
-  color: var(--preto);
-  font-weight: 400;
-  line-height: 1.4;
-}
-
-/* inputs */
-.field { margin-bottom: .5rem; }
-
-.field-label {
-  display: block;
-  font-size: .65rem;
-  letter-spacing: .15em;
-  text-transform: uppercase;
-  color: var(--cinza);
-  font-weight: 500;
-  margin-bottom: .4rem;
-}
-
-.quiz-input, .quiz-select {
-  width: 100%;
-  padding: .8rem 1rem;
-  border: 1px solid rgba(110,100,90,.2);
-  background: var(--branco);
-  font-family: 'DM Sans', sans-serif;
-  font-size: .85rem;
-  color: var(--preto);
-  outline: none;
-  transition: border-color .18s;
-}
-
-.quiz-input:focus, .quiz-select:focus { border-color: var(--ouro); }
-.quiz-input::placeholder { color: var(--cinza); font-weight: 300; }
-
-.quiz-select {
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23C9A96E'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right .9rem center;
-  cursor: pointer;
-}
-
-/* contact form */
-.cform { display: flex; flex-direction: column; gap: .8rem; }
-
-/* NAV BAR */
-.quiz-nav {
-  position: fixed; bottom: 0; left: 0; right: 0; z-index: 40;
-  background: var(--bege);
-  border-top: 1px solid rgba(110,100,90,.12);
-  display: flex; gap: .5rem;
-  padding: .9rem 1.5rem;
-  max-width: 520px;
-  margin: 0 auto;
-}
-
-/* offset so content not hidden behind fixed nav */
-.quiz-main { padding-bottom: 6rem; }
-
-.btn-back {
-  padding: .8rem 1.1rem;
-  border: 1px solid rgba(110,100,90,.25);
-  background: transparent;
-  font-family: 'DM Sans', sans-serif;
-  font-size: .75rem;
-  font-weight: 500;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: var(--cinza);
-  cursor: pointer;
-  transition: border-color .18s, color .18s;
-  flex-shrink: 0;
-}
-
-.btn-back:hover { border-color: var(--ouro); color: var(--ouro2); }
-
-.btn-next {
-  flex: 1;
-  padding: .85rem 1rem;
-  background: var(--preto);
-  color: var(--ouro3);
-  font-family: 'DM Sans', sans-serif;
-  font-size: .78rem;
-  font-weight: 500;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  border: none;
-  cursor: pointer;
-  transition: background .18s;
-  display: flex; align-items: center; justify-content: center; gap: .5rem;
-}
-
-.btn-next:hover { background: var(--carvao); }
-
-/* ── RESULTADO ────────────────────────────── */
-#resultado {
-  display: none;
-  background: var(--bege);
-}
-
-/* result header band */
-.res-band {
-  background: var(--preto);
-  padding: 2.5rem 1.5rem 2rem;
-  position: relative;
-  overflow: hidden;
-}
-
-.res-band::before {
-  content: 'DS';
-  position: absolute;
-  right: -1rem; top: -1.5rem;
-  font-family: 'Playfair Display', serif;
-  font-size: 8rem;
-  font-weight: 700;
-  color: rgba(201,169,110,.05);
-  letter-spacing: -.05em;
-  user-select: none;
-}
-
-.res-topbar {
-  display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 2rem;
-}
-
-.res-logo-row { display: flex; align-items: center; gap: .5rem; }
-
-.res-logo-box {
-  width: 28px; height: 28px;
-  background: var(--ouro);
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Playfair Display', serif;
-  font-weight: 700; font-size: .75rem;
-  color: var(--carvao);
-  clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
-}
-
-.res-logo-name {
-  font-family: 'Playfair Display', serif;
-  font-size: .8rem; font-weight: 400;
-  color: rgba(245,240,232,.7); letter-spacing: .1em;
-  text-transform: uppercase;
-}
-
-.res-tag {
-  font-size: .62rem; letter-spacing: .15em;
-  text-transform: uppercase;
-  color: rgba(201,169,110,.5);
-}
-
-/* check + title */
-.res-check {
-  width: 44px; height: 44px;
-  border: 1.5px solid var(--ouro);
-  display: flex; align-items: center; justify-content: center;
-  margin-bottom: 1.2rem;
-  animation: fadeIn .4s ease both;
-}
-
-.res-check svg { stroke: var(--ouro); }
-
-@keyframes fadeIn { from { opacity:0; transform:scale(.8); } to { opacity:1; transform:scale(1); } }
-
-.res-title {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(1.3rem, 4.5vw, 1.75rem);
-  font-weight: 400;
-  color: #F5F0E8;
-  line-height: 1.25;
-  margin-bottom: .5rem;
-}
-
-.res-subtitle {
-  font-size: .78rem;
-  color: rgba(245,240,232,.4);
-  font-weight: 300;
-  line-height: 1.6;
-}
-
-/* result body */
-.res-body {
-  padding: 1.8rem 1.5rem 3rem;
-  max-width: 520px;
-  margin: 0 auto;
-}
-
-/* score panel */
-.score-panel {
-  background: var(--branco);
-  border: 1px solid rgba(201,169,110,.25);
-  padding: 1.4rem;
-  margin-bottom: 1rem;
-  display: flex; flex-direction: column; gap: 1rem;
-}
-
-.score-top {
-  display: flex; align-items: flex-end; justify-content: space-between;
-}
-
-.score-num {
-  font-family: 'Playfair Display', serif;
-  font-size: 3rem;
-  font-weight: 700;
-  color: var(--preto);
-  line-height: 1;
-}
-
-.score-denom {
-  font-size: 1rem;
-  color: var(--cinza);
-  font-weight: 300;
-  margin-left: .1rem;
-}
-
-.score-badge {
-  font-size: .65rem;
-  font-weight: 500;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  padding: .3rem .75rem;
-  border: 1px solid currentColor;
-}
-
-.badge-exc { color: var(--verde); }
-.badge-bom { color: var(--ouro2); }
-.badge-mod { color: #8B5E2A; }
-
-.score-bar-bg {
-  background: var(--bege2);
-  height: 4px;
-}
-
-.score-bar-fill {
-  height: 100%;
-  background: var(--ouro);
-  transition: width 1s cubic-bezier(.4,0,.2,1) .3s;
-}
-
-.score-label {
-  font-size: .65rem;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  color: var(--cinza);
-  font-weight: 400;
-}
-
-/* quote */
-.quote-block {
-  border-left: 2px solid var(--ouro);
-  padding: 1.1rem 1.1rem 1.1rem 1.3rem;
-  background: var(--branco);
-  margin-bottom: 1rem;
-}
-
-.quote-text {
-  font-family: 'Playfair Display', serif;
-  font-size: .95rem;
-  font-style: italic;
-  font-weight: 400;
-  color: var(--carvao);
-  line-height: 1.65;
-}
-
-/* duo cards */
-.duo {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: .6rem;
-  margin-bottom: 1.5rem;
-}
-
-.duo-card {
-  background: var(--preto);
-  padding: 1rem;
-}
-
-.duo-label {
-  font-size: .58rem;
-  letter-spacing: .16em;
-  text-transform: uppercase;
-  color: rgba(201,169,110,.5);
-  font-weight: 400;
-  margin-bottom: .4rem;
-}
-
-.duo-val {
-  font-family: 'Playfair Display', serif;
-  font-size: .95rem;
-  font-weight: 400;
-  color: #F5F0E8;
-  line-height: 1.3;
-}
-
-/* section heading */
-.sec-heading {
-  display: flex; align-items: center; gap: .7rem;
-  margin-bottom: 1.2rem;
-  margin-top: 2rem;
-}
-
-.sec-line { flex: 1; height: 1px; background: rgba(110,100,90,.15); }
-
-.sec-title {
-  font-size: .62rem;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  color: var(--ouro2);
-  font-weight: 500;
-  flex-shrink: 0;
-}
-
-/* process timeline */
-.timeline { position: relative; padding-left: 1.8rem; }
-
-.timeline::before {
-  content: '';
-  position: absolute;
-  left: .42rem;
-  top: .5rem; bottom: .5rem;
-  width: 1px;
-  background: linear-gradient(180deg, rgba(201,169,110,.4), rgba(201,169,110,.15));
-}
-
-.tl-step { position: relative; margin-bottom: 1.8rem; }
-.tl-step:last-child { margin-bottom: 0; }
-
-.tl-dot {
-  position: absolute;
-  left: -1.8rem;
-  top: .1rem;
-  width: 16px; height: 16px;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: .55rem;
-  font-weight: 700;
-  color: var(--branco);
-  flex-shrink: 0;
-}
-
-.tl-dot.d1 { background: #B05B2C; }
-.tl-dot.d2 { background: var(--azul); }
-.tl-dot.d3 { background: var(--verde); }
-
-.tl-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 1rem;
-  font-weight: 500;
-  color: var(--preto);
-  margin-bottom: .3rem;
-}
-
-.tl-desc {
-  font-size: .76rem;
-  color: var(--cinza);
-  line-height: 1.55;
-  font-weight: 300;
-  margin-bottom: .7rem;
-}
-
-/* strategy pills */
-.strat-row { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
-
-.strat-card {
-  border: 1px solid rgba(110,100,90,.15);
-  background: var(--bege);
-  padding: .9rem;
-}
-
-.strat-head {
-  display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: .6rem;
-}
-
-.strat-name {
-  font-size: .72rem;
-  font-weight: 500;
-  color: var(--preto);
-  letter-spacing: .04em;
-  text-transform: uppercase;
-}
-
-.strat-pill {
-  font-size: .55rem;
-  font-weight: 500;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  padding: .15rem .45rem;
-}
-
-.pill-azul { background: rgba(26,63,110,.08); color: var(--azul); }
-.pill-mel { background: rgba(176,91,44,.1); color: #B05B2C; }
-
-.strat-list { list-style: none; }
-.strat-list li {
-  font-size: .7rem;
-  color: var(--cinza);
-  padding: .18rem 0;
-  padding-left: .75rem;
-  position: relative;
-  line-height: 1.35;
-  font-weight: 300;
-}
-.strat-list li::before {
-  content: '—';
-  position: absolute; left: 0;
-  color: rgba(201,169,110,.5);
-  font-size: .6rem;
-}
-
-/* warning items */
-.warn-list { display: flex; flex-direction: column; gap: .6rem; }
-
-.warn-item {
-  display: flex; gap: .9rem; align-items: flex-start;
-  padding: 1rem;
-  background: var(--branco);
-  border: 1px solid rgba(110,100,90,.12);
-}
-
-.warn-num {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: var(--ouro);
-  opacity: .6;
-  line-height: 1;
-  flex-shrink: 0;
-  margin-top: -.05rem;
-}
-
-.warn-content {}
-
-.warn-title {
-  font-size: .8rem;
-  font-weight: 500;
-  color: var(--preto);
-  margin-bottom: .25rem;
-}
-
-.warn-text {
-  font-size: .73rem;
-  color: var(--cinza);
-  line-height: 1.55;
-  font-weight: 300;
-}
-
-/* CTA buttons */
-.cta-stack { display: flex; flex-direction: column; gap: .55rem; margin-top: 1.5rem; }
-
-.cta-pair { display: grid; grid-template-columns: 1fr 1fr; gap: .55rem; }
-
-.cta-btn {
-  display: flex; align-items: center; justify-content: center; gap: .55rem;
-  padding: .9rem 1rem;
-  font-family: 'DM Sans', sans-serif;
-  font-size: .75rem;
-  font-weight: 500;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  cursor: pointer;
-  border: none;
-  text-decoration: none;
-  transition: opacity .2s, transform .2s;
-}
-
-.cta-btn:hover { opacity: .9; transform: translateY(-1px); }
-
-.btn-wa { background: #1FAD50; color: #fff; }
-.btn-call { background: var(--branco); color: var(--preto); border: 1px solid rgba(110,100,90,.2); }
-.btn-ig { background: linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); color: #fff; }
-/* btn-pdf removido */
-
-.res-note {
-  margin-top: 1.8rem;
-  padding: 1rem;
-  border: 1px solid rgba(201,169,110,.15);
-  font-size: .7rem;
-  color: var(--cinza);
-  text-align: center;
-  line-height: 1.6;
-  font-weight: 300;
-  font-style: italic;
-}
-
-/* animation */
-.anim-in {
-  animation: aIn .35s ease both;
-}
-@keyframes aIn {
-  from { opacity:0; transform: translateY(12px); }
-  to { opacity:1; transform: translateY(0); }
-}
-</style>
-</head>
-<body>
-
-<!-- ─── HERO ─────────────────────────────── -->
-<section id="hero">
-  <div class="hero-img"></div>
-  <div class="hero-grad"></div>
-
-  <div class="hero-topbar">
-    <div class="logo">
-      <div class="logo-mark">DS</div>
-      <span class="logo-name">Private</span>
-    </div>
-    <span class="hero-tag">Simulador gratuito</span>
-  </div>
-
-  <div class="hero-body">
-    <div class="hero-pill">
-      <span class="hero-pill-dot"></span>
-      <span class="hero-pill-text">Análise de viabilidade · 100% gratuito</span>
-    </div>
-    <h1 class="hero-h1">
-      A sua próxima casa<br>já existe. <em>Falta perceber<br>se está pronto para avançar.</em>
-    </h1>
-    <p class="hero-sub">Responda a 5 perguntas e descubra, em menos de 3 minutos, se a troca de casa é viável para si — e o que precisa de fazer para avançar.</p>
-    <button class="btn-hero" onclick="startQuiz()">
-      Quero saber se consigo mudar
-      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="2" y1="8" x2="14" y2="8"/><polyline points="9 3 14 8 9 13"/></svg>
-    </button>
-  </div>
-
-  <div class="hero-trust">
-    <div class="trust-item"><span class="trust-dot"></span> Menos de 3 minutos</div>
-    <div class="trust-item"><span class="trust-dot"></span> Sem compromisso</div>
-    <div class="trust-item"><span class="trust-dot"></span> Resultado imediato</div>
-  </div>
-</section>
-
-<!-- ─── QUIZ ──────────────────────────────── -->
-<section id="quiz">
-  <div class="progress-strip">
-    <div class="progress-fill" id="pFill" style="width:20%"></div>
-  </div>
-
-  <div class="quiz-topbar">
-    <div class="quiz-logo-mark">
-      <div class="q-logo-box">DS</div>
-      <span class="q-logo-name">Private</span>
-    </div>
-    <span class="step-counter" id="sCounter">Passo 1 de 5</span>
-  </div>
-
-  <div class="quiz-main">
-
-    <!-- PASSO 1 -->
-    <div class="step active" id="s1">
-      <div class="step-head">
-        <div class="step-num" aria-hidden="true">01</div>
-        <h2 class="step-q">O que procura?</h2>
-        <p class="step-hint">Selecione o tipo de imóvel que tem em mente</p>
-      </div>
-
-      <div class="sub-q-label">Tipo de imóvel</div>
-      <div class="opt-grid">
-        <div class="opt-card" onclick="pick(this,'q1t','apartamento')">
-          <span class="opt-icon">🏢</span>
-          <span class="opt-label">Apartamento</span>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Responda a 5 perguntas e descubra se a troca de casa é viável</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      :root {
+        --primary-color: #0b1437;
+        --secondary-color: #f97316;
+        --background-color: #0f172a;
+        --card-background: rgba(15, 23, 42, 0.9);
+        --text-color: #e5e7eb;
+        --muted-text: #9ca3af;
+        --border-color: rgba(148, 163, 184, 0.2);
+        --shadow-color: rgba(15, 23, 42, 0.6);
+        --accent-gradient: linear-gradient(135deg, #f97316, #ea580c);
+        --success-color: #22c55e;
+        --danger-color: #ef4444;
+        --warning-color: #eab308;
+        --input-background: rgba(15, 23, 42, 0.6);
+        --step-completed: rgba(34, 197, 94, 0.15);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: radial-gradient(circle at top, #1e293b 0, #020617 50%);
+        color: var(--text-color);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: stretch;
+        padding: 24px;
+      }
+
+      .app-container {
+        width: 100%;
+        max-width: 1120px;
+        display: grid;
+        grid-template-columns: minmax(0, 3fr) minmax(0, 2.2fr);
+        gap: 24px;
+      }
+
+      .card {
+        background: radial-gradient(circle at top left, rgba(249, 115, 22, 0.06), rgba(15, 23, 42, 0.95));
+        border-radius: 24px;
+        border: 1px solid var(--border-color);
+        box-shadow: 0 20px 40px var(--shadow-color);
+        padding: 24px 24px 20px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .secondary-card {
+        background: radial-gradient(circle at top right, rgba(56, 189, 248, 0.08), rgba(15, 23, 42, 0.98));
+        border-radius: 24px;
+        border: 1px solid var(--border-color);
+        box-shadow: 0 20px 40px var(--shadow-color);
+        padding: 24px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .card:before,
+      .secondary-card:before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 0 0, rgba(248, 113, 22, 0.2), transparent 50%);
+        opacity: 0.75;
+        pointer-events: none;
+      }
+
+      .card:after,
+      .secondary-card:after {
+        content: "";
+        position: absolute;
+        inset: -1px;
+        border-radius: inherit;
+        border: 1px solid;
+        border-image: linear-gradient(135deg, rgba(248, 113, 22, 0.2), rgba(56, 189, 248, 0.15), rgba(34, 197, 94, 0.2)) 1;
+        opacity: 0.8;
+        pointer-events: none;
+      }
+
+      .card-content {
+        position: relative;
+        z-index: 1;
+      }
+
+      .secondary-card-content {
+        position: relative;
+        z-index: 1;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 12px;
+        border-radius: 9999px;
+        background: rgba(15, 23, 42, 0.9);
+        border: 1px solid rgba(148, 163, 184, 0.35);
+        color: var(--muted-text);
+        font-size: 12px;
+        margin-bottom: 16px;
+        backdrop-filter: blur(10px);
+      }
+
+      .badge-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 9999px;
+        background: linear-gradient(135deg, #22c55e, #4ade80);
+        box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.3);
+      }
+
+      .badge-highlight {
+        color: #e5e7eb;
+        font-weight: 600;
+      }
+
+      .badge-divider {
+        width: 1px;
+        height: 12px;
+        background: rgba(148, 163, 184, 0.5);
+      }
+
+      h1 {
+        font-size: 26px;
+        line-height: 1.2;
+        margin-bottom: 10px;
+        letter-spacing: -0.02em;
+      }
+
+      .highlight-text {
+        color: #f97316;
+      }
+
+      .subheading {
+        font-size: 14px;
+        color: var(--muted-text);
+        margin-bottom: 20px;
+      }
+
+      .time-highlight {
+        display: inline-flex;
+        align-items: center;
+        padding: 2px 8px;
+        border-radius: 9999px;
+        background: rgba(15, 23, 42, 0.85);
+        border: 1px solid rgba(148, 163, 184, 0.5);
+        color: #e5e7eb;
+        font-size: 12px;
+        margin-left: 6px;
+      }
+
+      .time-highlight span {
+        color: #f97316;
+        font-weight: 600;
+        margin: 0 3px;
+      }
+
+      .progress-container {
+        margin: 20px 0 24px;
+      }
+
+      .progress-labels {
+        display: flex;
+        justify-content: space-between;
+        font-size: 12px;
+        color: var(--muted-text);
+        margin-bottom: 6px;
+      }
+
+      .progress-bar {
+        height: 8px;
+        border-radius: 9999px;
+        background: rgba(15, 23, 42, 0.95);
+        border: 1px solid rgba(15, 23, 42, 0.8);
+        box-shadow: inset 0 1px 0 rgba(148, 163, 184, 0.2);
+        overflow: hidden;
+        position: relative;
+      }
+
+      .progress-fill {
+        height: 100%;
+        width: 0;
+        border-radius: 9999px;
+        background: linear-gradient(90deg, #22c55e, #facc15, #f97316);
+        box-shadow: 0 0 15px rgba(234, 179, 8, 0.3);
+        transition: width 0.5s ease;
+      }
+
+      .progress-steps {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 12px;
+      }
+
+      .step-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        flex: 1;
+      }
+
+      .step-circle {
+        width: 20px;
+        height: 20px;
+        border-radius: 9999px;
+        border: 1px solid rgba(148, 163, 184, 0.4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        color: var(--muted-text);
+        background: rgba(15, 23, 42, 0.95);
+      }
+
+      .step-circle.active {
+        background: rgba(234, 88, 12, 0.2);
+        border-color: #f97316;
+        color: #fed7aa;
+        box-shadow: 0 0 0 1px rgba(249, 115, 22, 0.4), 0 0 18px rgba(249, 115, 22, 0.4);
+      }
+
+      .step-circle.completed {
+        background: var(--step-completed);
+        border-color: #22c55e;
+        color: #bbf7d0;
+        box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.5), 0 0 18px rgba(34, 197, 94, 0.5);
+      }
+
+      .step-label {
+        font-size: 11px;
+        color: var(--muted-text);
+        text-align: center;
+      }
+
+      .step-label.active {
+        color: #e5e7eb;
+        font-weight: 500;
+      }
+
+      form {
+        margin-top: 16px;
+      }
+
+      .question-group {
+        display: none;
+        animation: fadeIn 0.12s ease-out;
+      }
+
+      .question-group.active {
+        display: block;
+      }
+
+      .question-header {
+        margin-bottom: 12px;
+      }
+
+      .question-number {
+        font-size: 12px;
+        color: var(--muted-text);
+        margin-bottom: 4px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .question-title {
+        font-size: 16px;
+        font-weight: 500;
+        margin-bottom: 4px;
+      }
+
+      .question-description {
+        font-size: 13px;
+        color: var(--muted-text);
+      }
+
+      .options-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 16px;
+      }
+
+      .option-card {
+        position: relative;
+      }
+
+      .option-input {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .option-label {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        align-items: flex-start;
+        padding: 10px 10px 9px;
+        border-radius: 14px;
+        border: 1px solid rgba(148, 163, 184, 0.4);
+        background: var(--input-background);
+        cursor: pointer;
+        font-size: 13px;
+        transition: all 0.16s ease;
+        min-height: 56px;
+      }
+
+      .option-title {
+        font-weight: 500;
+        font-size: 13px;
+        color: #e5e7eb;
+      }
+
+      .option-subtitle {
+        font-size: 11px;
+        color: var(--muted-text);
+      }
+
+      .option-label:hover {
+        border-color: rgba(248, 113, 22, 0.9);
+        background: rgba(15, 23, 42, 0.9);
+        box-shadow: 0 0 0 1px rgba(248, 113, 22, 0.5);
+        transform: translateY(-1px);
+      }
+
+      .option-input:checked + .option-label {
+        border-color: rgba(248, 113, 22, 0.95);
+        background: radial-gradient(circle at top left, rgba(248, 113, 22, 0.1), rgba(15, 23, 42, 0.95));
+        box-shadow: 0 0 0 1px rgba(248, 113, 22, 0.7), 0 0 25px rgba(248, 113, 22, 0.3);
+      }
+
+      .option-input:checked + .option-label .option-title {
+        color: #fed7aa;
+      }
+
+      .option-input:checked + .option-label .option-subtitle {
+        color: #fed7aa;
+      }
+
+      .input-group {
+        margin-top: 16px;
+      }
+
+      .input-label {
+        display: block;
+        font-size: 12px;
+        color: var(--muted-text);
+        margin-bottom: 6px;
+      }
+
+      .input-field {
+        width: 100%;
+        padding: 10px 11px;
+        border-radius: 12px;
+        border: 1px solid rgba(148, 163, 184, 0.5);
+        background: var(--input-background);
+        color: var(--text-color);
+        font-size: 13px;
+        outline: none;
+        transition: all 0.16s ease;
+      }
+
+      .input-field::placeholder {
+        color: rgba(148, 163, 184, 0.7);
+      }
+
+      .input-field:focus {
+        border-color: rgba(248, 113, 22, 0.95);
+        box-shadow: 0 0 0 1px rgba(248, 113, 22, 0.8), 0 0 30px rgba(248, 113, 22, 0.35);
+      }
+
+      .input-hint {
+        font-size: 11px;
+        color: var(--muted-text);
+        margin-top: 4px;
+      }
+
+      .input-row {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      .flag-input-wrapper {
+        position: relative;
+      }
+
+      .flag-prefix {
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 12px;
+        color: #e5e7eb;
+      }
+
+      .flag-icon {
+        font-size: 14px;
+      }
+
+      .input-field.phone-input {
+        padding-left: 60px;
+      }
+
+      .terms-text {
+        font-size: 11px;
+        color: var(--muted-text);
+        margin-top: 12px;
+      }
+
+      .terms-text a {
+        color: #f97316;
+        text-decoration: none;
+      }
+
+      .terms-text a:hover {
+        text-decoration: underline;
+      }
+
+      .button-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 18px;
+        gap: 12px;
+      }
+
+      .button-group {
+        display: flex;
+        gap: 10px;
+      }
+
+      .primary-button {
+        padding: 10px 20px;
+        border-radius: 9999px;
+        border: none;
+        background-image: var(--accent-gradient);
+        color: #fefce8;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        box-shadow: 0 12px 30px rgba(248, 113, 22, 0.35);
+        transition: all 0.16s ease;
+        white-space: nowrap;
+      }
+
+      .primary-button:hover {
+        transform: translateY(-1px) translateX(1px);
+        box-shadow: 0 18px 40px rgba(248, 113, 22, 0.45);
+      }
+
+      .primary-button:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: 0 10px 20px rgba(15, 23, 42, 0.6);
+      }
+
+      .secondary-button {
+        padding: 9px 16px;
+        border-radius: 9999px;
+        border: 1px solid rgba(148, 163, 184, 0.6);
+        background: rgba(15, 23, 42, 0.9);
+        color: var(--muted-text);
+        font-size: 13px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.14s ease;
+        white-space: nowrap;
+      }
+
+      .secondary-button:hover {
+        border-color: rgba(248, 113, 22, 0.8);
+        color: #e5e7eb;
+        box-shadow: 0 0 0 1px rgba(248, 113, 22, 0.5);
+        transform: translateY(-1px);
+      }
+
+      .button-icon {
+        width: 16px;
+        height: 16px;
+      }
+
+      .button-subtext {
+        font-size: 11px;
+        color: var(--muted-text);
+      }
+
+      .button-subtext span {
+        color: #22c55e;
+        font-weight: 500;
+      }
+
+      .safety-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 16px;
+        font-size: 11px;
+        color: var(--muted-text);
+      }
+
+      .shield-icon {
+        width: 14px;
+        height: 14px;
+        border-radius: 9999px;
+        background: rgba(15, 23, 42, 0.9);
+        border: 1px solid rgba(148, 163, 184, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 9px;
+        color: #22c55e;
+      }
+
+      .safety-highlight {
+        color: #e5e7eb;
+      }
+
+      .result-card {
+        display: none;
+        margin-top: 8px;
+        padding: 14px;
+        border-radius: 16px;
+        background: radial-gradient(circle at top left, rgba(34, 197, 94, 0.15), rgba(15, 23, 42, 0.98));
+        border: 1px solid rgba(34, 197, 94, 0.5);
+        box-shadow: 0 12px 30px rgba(15, 23, 42, 0.7);
+      }
+
+      .result-card.visible {
+        display: block;
+      }
+
+      .result-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+
+      .result-icon {
+        width: 26px;
+        height: 26px;
+        border-radius: 9999px;
+        background: rgba(15, 23, 42, 0.95);
+        border: 1px solid rgba(74, 222, 128, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #22c55e;
+        font-size: 14px;
+        box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.3);
+      }
+
+      .result-title {
+        font-size: 13px;
+        font-weight: 600;
+        color: #bbf7d0;
+      }
+
+      .result-tag {
+        font-size: 11px;
+        color: #22c55e;
+        padding: 2px 8px;
+        border-radius: 9999px;
+        background: rgba(15, 23, 42, 0.9);
+        border: 1px solid rgba(74, 222, 128, 0.5);
+      }
+
+      .result-text {
+        font-size: 12px;
+        color: #e5e7eb;
+        margin-bottom: 8px;
+      }
+
+      .result-quote {
+        font-size: 12px;
+        color: #bbf7d0;
+        font-style: italic;
+        border-left: 2px solid rgba(74, 222, 128, 0.8);
+        padding-left: 10px;
+      }
+
+      .expert-card {
+        margin-top: 10px;
+        padding: 10px 12px;
+        border-radius: 14px;
+        background: rgba(15, 23, 42, 0.95);
+        border: 1px dashed rgba(148, 163, 184, 0.6);
+      }
+
+      .expert-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 6px;
+      }
+
+      .expert-avatar {
+        width: 22px;
+        height: 22px;
+        border-radius: 9999px;
+        background: linear-gradient(135deg, #f97316, #facc15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #0f172a;
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .expert-name {
+        font-size: 12px;
+        color: #e5e7eb;
+        font-weight: 500;
+      }
+
+      .expert-role {
+        font-size: 11px;
+        color: var(--muted-text);
+      }
+
+      .expert-text {
+        font-size: 11px;
+        color: var(--muted-text);
+      }
+
+      .secondary-header {
+        margin-bottom: 14px;
+      }
+
+      .secondary-title {
+        font-size: 15px;
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+
+      .secondary-subtitle {
+        font-size: 12px;
+        color: var(--muted-text);
+      }
+
+      .benefits-list {
+        margin-top: 12px;
+        padding: 10px 11px;
+        border-radius: 14px;
+        background: rgba(15, 23, 42, 0.95);
+        border: 1px solid rgba(148, 163, 184, 0.5);
+      }
+
+      .benefit-item {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 8px;
+      }
+
+      .benefit-item:last-child {
+        margin-bottom: 0;
+      }
+
+      .benefit-icon {
+        margin-top: 3px;
+        width: 18px;
+        height: 18px;
+        border-radius: 9999px;
+        background: rgba(34, 197, 94, 0.12);
+        border: 1px solid rgba(74, 222, 128, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        color: #22c55e;
+      }
+
+      .benefit-content {
+        flex: 1;
+      }
+
+      .benefit-title {
+        font-size: 12px;
+        font-weight: 500;
+        color: #e5e7eb;
+        margin-bottom: 2px;
+      }
+
+      .benefit-text {
+        font-size: 11px;
+        color: var(--muted-text);
+      }
+
+      .info-list {
+        margin-top: 10px;
+        padding: 10px 11px;
+        border-radius: 14px;
+        background: rgba(15, 23, 42, 0.95);
+        border: 1px dashed rgba(148, 163, 184, 0.5);
+      }
+
+      .info-item {
+        font-size: 11px;
+        color: var(--muted-text);
+        margin-bottom: 6px;
+        padding-left: 14px;
+        position: relative;
+      }
+
+      .info-item:last-child {
+        margin-bottom: 0;
+      }
+
+      .info-item:before {
+        content: "•";
+        position: absolute;
+        left: 0;
+        color: rgba(248, 113, 22, 0.9);
+      }
+
+      .note-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 12px;
+        padding: 4px 9px;
+        border-radius: 9999px;
+        background: rgba(15, 23, 42, 0.95);
+        border: 1px solid rgba(148, 163, 184, 0.5);
+        font-size: 11px;
+        color: var(--muted-text);
+        align-self: flex-start;
+      }
+
+      .note-badge-icon {
+        width: 14px;
+        height: 14px;
+        border-radius: 9999px;
+        background: rgba(15, 23, 42, 1);
+        border: 1px solid rgba(148, 163, 184, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 9px;
+      }
+
+      .desktop-only {
+        display: block;
+      }
+
+      .mobile-only {
+        display: none;
+      }
+
+      .success-icon,
+      .warning-icon,
+      .danger-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 18px;
+        height: 18px;
+        border-radius: 9999px;
+        font-size: 11px;
+      }
+
+      .success-icon {
+        background: rgba(34, 197, 94, 0.15);
+        border: 1px solid rgba(74, 222, 128, 0.8);
+        color: #22c55e;
+      }
+
+      .warning-icon {
+        background: rgba(234, 179, 8, 0.15);
+        border: 1px solid rgba(250, 204, 21, 0.8);
+        color: #eab308;
+      }
+
+      .danger-icon {
+        background: rgba(239, 68, 68, 0.15);
+        border: 1px solid rgba(248, 113, 113, 0.8);
+        color: #ef4444;
+      }
+
+      .floating-badge {
+        position: absolute;
+        top: 22px;
+        right: 22px;
+        padding: 6px 10px;
+        border-radius: 9999px;
+        background: rgba(15, 23, 42, 0.96);
+        border: 1px solid rgba(148, 163, 184, 0.6);
+        font-size: 11px;
+        color: var(--muted-text);
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        backdrop-filter: blur(10px);
+        z-index: 2;
+      }
+
+      .floating-badge-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 9999px;
+        background: #22c55e;
+        box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.3);
+      }
+
+      .floating-badge-value {
+        color: #e5e7eb;
+        font-weight: 600;
+      }
+
+      .floating-badge-label {
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+
+      .secondary-floating-badge {
+        position: absolute;
+        top: 22px;
+        right: 22px;
+        padding: 6px 10px;
+        border-radius: 9999px;
+        background: rgba(15, 23, 42, 0.96);
+        border: 1px solid rgba(148, 163, 184, 0.6);
+        font-size: 11px;
+        color: var(--muted-text);
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        backdrop-filter: blur(10px);
+        z-index: 2;
+      }
+
+      .secondary-badge-icon {
+        width: 16px;
+        height: 16px;
+        border-radius: 9999px;
+        background: rgba(15, 23, 42, 1);
+        border: 1px solid rgba(148, 163, 184, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 9px;
+      }
+
+      .secondary-floating-badge span {
+        color: #e5e7eb;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(4px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 960px) {
+        body {
+          align-items: flex-start;
+          padding: 16px;
+        }
+
+        .app-container {
+          grid-template-columns: minmax(0, 1fr);
+          max-width: 640px;
+        }
+
+        .card,
+        .secondary-card {
+          padding: 20px 18px 16px;
+          border-radius: 18px;
+        }
+
+        .desktop-only {
+          display: none;
+        }
+
+        .mobile-only {
+          display: block;
+        }
+
+        h1 {
+          font-size: 22px;
+        }
+
+        .options-grid {
+          grid-template-columns: minmax(0, 1fr);
+        }
+
+        .floating-badge,
+        .secondary-floating-badge {
+          top: 16px;
+          right: 16px;
+        }
+
+        .button-row {
+          flex-direction: column-reverse;
+          align-items: stretch;
+        }
+
+        .button-group {
+          width: 100%;
+          justify-content: space-between;
+        }
+
+        .primary-button,
+        .secondary-button {
+          flex: 1;
+          justify-content: center;
+        }
+      }
+
+      @media (max-width: 480px) {
+        body {
+          padding: 12px;
+        }
+
+        .card,
+        .secondary-card {
+          padding: 18px 14px 14px;
+        }
+
+        h1 {
+          font-size: 20px;
+        }
+
+        .badge {
+          font-size: 11px;
+        }
+
+        .secondary-title {
+          font-size: 14px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app-container">
+      <div class="card">
+        <div class="floating-badge">
+          <span class="floating-badge-dot"></span>
+          <span class="floating-badge-label">Tempo estimado</span>
+          <span class="floating-badge-value">2-3 min</span>
         </div>
-        <div class="opt-card" onclick="pick(this,'q1t','moradia')">
-          <span class="opt-icon">🏡</span>
-          <span class="opt-label">Moradia</span>
-        </div>
-      </div>
-
-      <div class="sub-q">
-        <div class="sub-q-label">Tipologia</div>
-        <div class="opt-grid four">
-          <div class="opt-card" onclick="pick(this,'q1q','1')"><span class="opt-icon" style="font-size:1.1rem;font-family:'Playfair Display',serif;font-weight:700;color:var(--preto)">T1</span><span class="opt-label">1 quarto</span></div>
-          <div class="opt-card" onclick="pick(this,'q1q','2')"><span class="opt-icon" style="font-size:1.1rem;font-family:'Playfair Display',serif;font-weight:700;color:var(--preto)">T2</span><span class="opt-label">2 quartos</span></div>
-          <div class="opt-card" onclick="pick(this,'q1q','3')"><span class="opt-icon" style="font-size:1.1rem;font-family:'Playfair Display',serif;font-weight:700;color:var(--preto)">T3</span><span class="opt-label">3 quartos</span></div>
-          <div class="opt-card" onclick="pick(this,'q1q','4+')"><span class="opt-icon" style="font-size:1.1rem;font-family:'Playfair Display',serif;font-weight:700;color:var(--preto)">T4+</span><span class="opt-label">4+ quartos</span></div>
-        </div>
-      </div>
-
-      <div class="sub-q">
-        <div class="sub-q-label">Localização pretendida</div>
-        <div class="field">
-          <input class="quiz-input" type="text" id="q1z" placeholder="Ex: Lisboa, Cascais, Sintra…" oninput="A.q1z=this.value">
-        </div>
-      </div>
-    </div>
-
-    <!-- PASSO 2 -->
-    <div class="step" id="s2">
-      <div class="step-head">
-        <div class="step-num" aria-hidden="true">02</div>
-        <h2 class="step-q">O que precisa de vender?</h2>
-        <p class="step-hint">O seu imóvel atual é o principal ativo desta operação</p>
-      </div>
-
-      <div class="sub-q-label">Tipo de imóvel a vender</div>
-      <div class="opt-grid">
-        <div class="opt-card" onclick="pick(this,'q2t','apartamento')"><span class="opt-icon">🏢</span><span class="opt-label">Apartamento</span></div>
-        <div class="opt-card" onclick="pick(this,'q2t','moradia')"><span class="opt-icon">🏡</span><span class="opt-label">Moradia</span></div>
-        <div class="opt-card" onclick="pick(this,'q2t','terreno')"><span class="opt-icon">🌿</span><span class="opt-label">Terreno</span></div>
-        <div class="opt-card" onclick="pick(this,'q2t','nenhum')"><span class="opt-icon">✨</span><span class="opt-label">Não preciso vender</span></div>
-      </div>
-
-      <div class="sub-q" id="s2q-wrap">
-        <div class="sub-q-label">Tipologia atual</div>
-        <div class="opt-grid four">
-          <div class="opt-card" onclick="pick(this,'q2q','1')"><span class="opt-icon" style="font-size:1.1rem;font-family:'Playfair Display',serif;font-weight:700;color:var(--preto)">T1</span><span class="opt-label">1 quarto</span></div>
-          <div class="opt-card" onclick="pick(this,'q2q','2')"><span class="opt-icon" style="font-size:1.1rem;font-family:'Playfair Display',serif;font-weight:700;color:var(--preto)">T2</span><span class="opt-label">2 quartos</span></div>
-          <div class="opt-card" onclick="pick(this,'q2q','3')"><span class="opt-icon" style="font-size:1.1rem;font-family:'Playfair Display',serif;font-weight:700;color:var(--preto)">T3</span><span class="opt-label">3 quartos</span></div>
-          <div class="opt-card" onclick="pick(this,'q2q','4+')"><span class="opt-icon" style="font-size:1.1rem;font-family:'Playfair Display',serif;font-weight:700;color:var(--preto)">T4+</span><span class="opt-label">4+ quartos</span></div>
-        </div>
-      </div>
-
-      <div class="sub-q">
-        <div class="sub-q-label">Estado do imóvel</div>
-        <div class="opt-list">
-          <label class="opt-row" onclick="radio(this,'q2e','novo')"><span class="opt-radio"></span><span class="opt-text">Novo ou recuperado recentemente</span></label>
-          <label class="opt-row" onclick="radio(this,'q2e','bom')"><span class="opt-radio"></span><span class="opt-text">Usado, bom estado geral</span></label>
-          <label class="opt-row" onclick="radio(this,'q2e','obras')"><span class="opt-radio"></span><span class="opt-text">Precisa de obras ou remodelação</span></label>
-        </div>
-      </div>
-
-      <div class="sub-q">
-        <div class="sub-q-label">Zona do imóvel atual</div>
-        <input class="quiz-input" type="text" id="q2z" placeholder="Ex: Amadora, Porto, Setúbal…" oninput="A.q2z=this.value">
-      </div>
-    </div>
-
-    <!-- PASSO 3 -->
-    <div class="step" id="s3">
-      <div class="step-head">
-        <div class="step-num" aria-hidden="true">03</div>
-        <h2 class="step-q">Vamos perceber a sua margem de manobra</h2>
-        <p class="step-hint">Não precisa de valores exatos — uma estimativa é suficiente</p>
-      </div>
-
-      <div class="sub-q-label">Tem crédito habitação ativo?</div>
-      <div class="opt-list">
-        <label class="opt-row" onclick="radio(this,'q3c','sim'); toggleCredito(true)">
-          <span class="opt-radio"></span>
-          <span class="opt-text">Sim, tenho crédito habitação</span>
-        </label>
-        <label class="opt-row" onclick="radio(this,'q3c','nao'); toggleCredito(false)">
-          <span class="opt-radio"></span>
-          <span class="opt-text">Não, o imóvel está pago</span>
-        </label>
-      </div>
-
-      <div id="credito-wrap" style="display:none" class="sub-q">
-        <div class="sub-q-label">Capital em dívida (aproximado)</div>
-        <select class="quiz-select" onchange="A.q3k=this.value">
-          <option value="">Selecione…</option>
-          <option value="a">Menos de 50 000 €</option>
-          <option value="b">Entre 50 000 € e 100 000 €</option>
-          <option value="c">Entre 100 000 € e 200 000 €</option>
-          <option value="d">Mais de 200 000 €</option>
-        </select>
-      </div>
-
-      <div class="sub-q">
-        <div class="sub-q-label">Capitais próprios disponíveis para entrada</div>
-        <div class="opt-list">
-          <label class="opt-row" onclick="radio(this,'q3p','0')"><span class="opt-radio"></span><span class="opt-text">Não tenho capitais próprios disponíveis</span></label>
-          <label class="opt-row" onclick="radio(this,'q3p','1')"><span class="opt-radio"></span><span class="opt-text">Tenho alguma base (até 20 000 €)</span></label>
-          <label class="opt-row" onclick="radio(this,'q3p','2')"><span class="opt-radio"></span><span class="opt-text">Tenho boa base (20 000 € a 60 000 €)</span></label>
-          <label class="opt-row" onclick="radio(this,'q3p','3')"><span class="opt-radio"></span><span class="opt-text">Tenho capitais próprios sólidos (+ de 60 000 €)</span></label>
-        </div>
-      </div>
-    </div>
-
-    <!-- PASSO 4 -->
-    <div class="step" id="s4">
-      <div class="step-head">
-        <div class="step-num" aria-hidden="true">04</div>
-        <h2 class="step-q">Em quanto tempo quer concretizar?</h2>
-        <p class="step-hint">O prazo define a estratégia ideal para si</p>
-      </div>
-
-      <div class="opt-list">
-        <label class="opt-row" onclick="radio(this,'q4p','urgente')"><span class="opt-radio"></span><span class="opt-text">O mais rápido possível</span></label>
-        <label class="opt-row" onclick="radio(this,'q4p','3m')"><span class="opt-radio"></span><span class="opt-text">Menos de 3 meses</span></label>
-        <label class="opt-row" onclick="radio(this,'q4p','6m')"><span class="opt-radio"></span><span class="opt-text">Entre 3 a 6 meses</span></label>
-        <label class="opt-row" onclick="radio(this,'q4p','mais6')"><span class="opt-radio"></span><span class="opt-text">Mais de 6 meses</span></label>
-      </div>
-
-      <div class="sub-q">
-        <div class="sub-q-label">Principal motivo da mudança</div>
-        <div class="opt-list">
-          <label class="opt-row" onclick="radio(this,'q4m','familia')"><span class="opt-radio"></span><span class="opt-text">A família cresceu, preciso de mais espaço</span></label>
-          <label class="opt-row" onclick="radio(this,'q4m','localizacao')"><span class="opt-radio"></span><span class="opt-text">Mudança de zona ou localização</span></label>
-          <label class="opt-row" onclick="radio(this,'q4m','upgrade')"><span class="opt-radio"></span><span class="opt-text">Upgrade de qualidade de vida</span></label>
-          <label class="opt-row" onclick="radio(this,'q4m','financeiro')"><span class="opt-radio"></span><span class="opt-text">Razões financeiras ou gestão patrimonial</span></label>
-          <label class="opt-row" onclick="radio(this,'q4m','outro')"><span class="opt-radio"></span><span class="opt-text">Outro motivo</span></label>
-        </div>
-      </div>
-    </div>
-
-    <!-- PASSO 5 -->
-    <div class="step" id="s5">
-      <div class="step-head">
-        <div class="step-num" aria-hidden="true">05</div>
-        <h2 class="step-q">Estamos quase lá.</h2>
-        <p class="step-hint">Deixe os seus dados para receber a análise personalizada</p>
-      </div>
-
-      <div class="cform">
-        <div class="field">
-          <label class="field-label">Nome completo</label>
-          <input class="quiz-input" type="text" placeholder="O seu nome" oninput="A.nome=this.value">
-        </div>
-        <div class="field">
-          <label class="field-label">Telemóvel</label>
-          <input class="quiz-input" type="tel" placeholder="+351 9XX XXX XXX" oninput="A.tel=this.value">
-        </div>
-        <div class="field">
-          <label class="field-label">E-mail</label>
-          <input class="quiz-input" type="email" placeholder="o.seu@email.pt" oninput="A.email=this.value">
-        </div>
-      </div>
-
-      <p style="font-size:.68rem;color:var(--cinza);font-weight:300;line-height:1.6;margin-bottom:.5rem;">
-        Os seus dados são usados exclusivamente para lhe enviar o resultado e entrar em contacto. Não partilhamos informações com terceiros.
-      </p>
-    </div>
-
-  </div><!-- /quiz-main -->
-
-  <!-- NAV -->
-  <div class="quiz-nav" id="quizNav">
-    <button class="btn-back" id="btnBack" onclick="goBack()" style="display:none">← Voltar</button>
-    <button class="btn-next" id="btnNext" onclick="goNext()">
-      Continuar
-      <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="2" y1="8" x2="14" y2="8"/><polyline points="9 3 14 8 9 13"/></svg>
-    </button>
-  </div>
-</section>
-
-<!-- ─── RESULTADO ─────────────────────────── -->
-<section id="resultado">
-
-  <div class="res-band">
-    <div class="res-topbar">
-      <div class="res-logo-row">
-        <div class="res-logo-box">DS</div>
-        <span class="res-logo-name">Private</span>
-      </div>
-      <span class="res-tag">Análise completa</span>
-    </div>
-
-    <div class="res-check" aria-label="Análise concluída">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-    </div>
-
-    <h2 class="res-title" id="rTitle">O seu perfil indica condições excecionais para avançar.</h2>
-    <p class="res-subtitle" id="rSub">A análise está concluída. O cenário é favorável.</p>
-  </div>
-
-  <div class="res-body">
-
-    <!-- Score -->
-    <div class="score-panel">
-      <div class="score-label">Viabilidade de mudança</div>
-      <div class="score-top">
-        <div>
-          <span class="score-num" id="rScore">—</span>
-          <span class="score-denom">/10</span>
-        </div>
-        <div class="score-badge" id="rBadge">—</div>
-      </div>
-      <div class="score-bar-bg">
-        <div class="score-bar-fill" id="rBar" style="width:0%"></div>
-      </div>
-    </div>
-
-    <!-- Quote -->
-    <div class="quote-block">
-      <p class="quote-text" id="rQuote">"Com a estratégia certa, trocar de casa pode ser mais simples do que imagina — e mais vantajoso do que esperar."</p>
-    </div>
-
-    <!-- Duo mini cards -->
-    <div class="duo">
-      <div class="duo-card">
-        <div class="duo-label">Prazo indicado</div>
-        <div class="duo-val" id="rPrazo">—</div>
-      </div>
-      <div class="duo-card">
-        <div class="duo-label">Motivo principal</div>
-        <div class="duo-val" id="rMotivo">—</div>
-      </div>
-    </div>
-
-    <!-- Processo -->
-    <div class="sec-heading"><div class="sec-line"></div><div class="sec-title">O processo de troca de casa</div><div class="sec-line"></div></div>
-
-    <div class="timeline">
-      <div class="tl-step">
-        <div class="tl-dot d1">1</div>
-        <div class="tl-title">Avaliação do imóvel atual</div>
-        <p class="tl-desc">Determinamos o valor de mercado real com base em transações recentes na sua zona — sem compromisso e sem custos.</p>
-      </div>
-
-      <div class="tl-step">
-        <div class="tl-dot d2">2</div>
-        <div class="tl-title">Definição da estratégia</div>
-        <p class="tl-desc">Analisamos qual a abordagem mais segura e vantajosa para a sua situação específica.</p>
-        <div class="strat-row">
-          <div class="strat-card">
-            <div class="strat-head">
-              <span class="strat-name">Vender<br>primeiro</span>
-              <span class="strat-pill pill-azul">Mais comum</span>
-            </div>
-            <ul class="strat-list">
-              <li>Avaliação e preparação</li>
-              <li>Angariação de comprador</li>
-              <li>Escritura da venda</li>
-              <li>Procura da nova casa</li>
-              <li>Escritura da compra</li>
-            </ul>
+        <div class="card-content">
+          <div class="badge">
+            <span class="badge-dot"></span>
+            <span>Simulação personalizada em tempo real</span>
+            <span class="badge-divider"></span>
+            <span class="badge-highlight">Sem compromisso nem custos</span>
           </div>
-          <div class="strat-card">
-            <div class="strat-head">
-              <span class="strat-name">Comprar<br>primeiro</span>
-              <span class="strat-pill pill-mel">Mais rápido</span>
+
+          <h1>
+            Responda a 5 perguntas e descubra se a
+            <span class="highlight-text">troca de casa é viável</span> para si
+          </h1>
+
+          <p class="subheading">
+            Em menos de 3 minutos, avalie se consegue financiar a nova casa
+            utilizando o valor do seu imóvel atual e veja o que precisa de fazer para avançar.
+            <span class="time-highlight">
+              Em apenas <span>5</span> passos rápidos
+            </span>
+          </p>
+
+          <div class="progress-container">
+            <div class="progress-labels">
+              <span>Progresso</span>
+              <span id="progress-percentage">0% concluído</span>
             </div>
-            <ul class="strat-list">
-              <li>Financiamento ponte</li>
-              <li>Reserva da nova casa</li>
-              <li>Escritura da compra</li>
-              <li>Venda do imóvel atual</li>
-              <li>Liquidação do crédito</li>
-            </ul>
+            <div class="progress-bar">
+              <div id="progress-fill" class="progress-fill"></div>
+            </div>
+            <div class="progress-steps">
+              <div class="step-item">
+                <div class="step-circle active" data-step="1">1</div>
+                <div class="step-label active">Tipo de imóvel</div>
+              </div>
+              <div class="step-item">
+                <div class="step-circle" data-step="2">2</div>
+                <div class="step-label">Valor do imóvel</div>
+              </div>
+              <div class="step-item">
+                <div class="step-circle" data-step="3">3</div>
+                <div class="step-label">Nova casa</div>
+              </div>
+              <div class="step-item">
+                <div class="step-circle" data-step="4">4</div>
+                <div class="step-label">Prazo</div>
+              </div>
+              <div class="step-item">
+                <div class="step-circle" data-step="5">5</div>
+                <div class="step-label">Os seus dados</div>
+              </div>
+            </div>
+          </div>
+
+          <form
+            id="simulacao-form"
+            action="https://services.leadconnectorhq.com/hooks/X8awZ8whfQtNiTBTcESn/webhook-trigger/e5e2058b-5969-4f63-bf50-4d5b26e68945"
+            method="post"
+          >
+            <div class="question-group active" data-step-group="1">
+              <div class="question-header">
+                <div class="question-number">Passo 1 de 5</div>
+                <div class="question-title">
+                  Selecione o tipo de imóvel que tem em mente
+                </div>
+                <div class="question-description desktop-only">
+                  Não precisa de ter uma casa específica escolhida — basta indicar o tipo de imóvel que pretende comprar.
+                </div>
+                <div class="question-description mobile-only">
+                  Indique o tipo de imóvel que pretende comprar.
+                </div>
+              </div>
+              <div class="options-grid">
+                <div class="option-card">
+                  <input
+                    type="radio"
+                    name="tipo_nova_casa"
+                    id="apartamento"
+                    value="Apartamento"
+                    class="option-input"
+                    required
+                  />
+                  <label for="apartamento" class="option-label">
+                    <span class="option-title">Apartamento</span>
+                    <span class="option-subtitle">T1, T2, T3 ou superior</span>
+                  </label>
+                </div>
+                <div class="option-card">
+                  <input
+                    type="radio"
+                    name="tipo_nova_casa"
+                    id="moradia"
+                    value="Moradia"
+                    class="option-input"
+                    required
+                  />
+                  <label for="moradia" class="option-label">
+                    <span class="option-title">Moradia</span>
+                    <span class="option-subtitle">Gemina, em banda ou isolada</span>
+                  </label>
+                </div>
+                <div class="option-card">
+                  <input
+                    type="radio"
+                    name="tipo_nova_casa"
+                    id="terreno"
+                    value="Terreno com construção futura"
+                    class="option-input"
+                    required
+                  />
+                  <label for="terreno" class="option-label">
+                    <span class="option-title">Terreno com construção futura</span>
+                    <span class="option-subtitle">Pretendo construir de raiz</span>
+                  </label>
+                </div>
+                <div class="option-card">
+                  <input
+                    type="radio"
+                    name="tipo_nova_casa"
+                    id="indefinido"
+                    value="Ainda estou a explorar opções"
+                    class="option-input"
+                    required
+                  />
+                  <label for="indefinido" class="option-label">
+                    <span class="option-title">Ainda estou a explorar opções</span>
+                    <span class="option-subtitle">Quero perceber o que é viável</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="question-group" data-step-group="2">
+              <div class="question-header">
+                <div class="question-number">Passo 2 de 5</div>
+                <div class="question-title">
+                  O seu imóvel atual é o principal ativo desta operação
+                </div>
+                <div class="question-description desktop-only">
+                  Com o valor certo de venda, é muitas vezes possível dar o passo para a casa seguinte sem aumentar demasiado o esforço mensal.
+                </div>
+                <div class="question-description mobile-only">
+                  Com o valor certo de venda, a troca pode ser mais simples do que parece.
+                </div>
+              </div>
+
+              <div class="input-group">
+                <label for="valor_imovel_atual" class="input-label">
+                  Estimativa do valor de mercado do seu imóvel atual
+                </label>
+                <input
+                  type="number"
+                  id="valor_imovel_atual"
+                  name="valor_imovel_atual"
+                  class="input-field"
+                  placeholder="Ex.: 250000"
+                  min="50000"
+                  step="1000"
+                  required
+                />
+                <div class="input-hint">
+                  Não precisa de valores exatos — uma estimativa baseada em imóveis semelhantes na sua zona é suficiente.
+                </div>
+              </div>
+
+              <div class="input-row">
+                <div class="input-group">
+                  <label for="divida_atual" class="input-label">
+                    Valor em dívida do crédito habitação atual
+                  </label>
+                  <input
+                    type="number"
+                    id="divida_atual"
+                    name="divida_atual"
+                    class="input-field"
+                    placeholder="Ex.: 120000"
+                    min="0"
+                    step="1000"
+                    required
+                  />
+                  <div class="input-hint">
+                    Se já não tem crédito, indique <strong>0</strong>.
+                  </div>
+                </div>
+                <div class="input-group">
+                  <label for="prestacao_atual" class="input-label">
+                    Prestação mensal atual do crédito habitação
+                  </label>
+                  <input
+                    type="number"
+                    id="prestacao_atual"
+                    name="prestacao_atual"
+                    class="input-field"
+                    placeholder="Ex.: 650"
+                    min="0"
+                    step="10"
+                    required
+                  />
+                  <div class="input-hint">
+                    Ajuda a perceber o esforço financeiro atual.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="question-group" data-step-group="3">
+              <div class="question-header">
+                <div class="question-number">Passo 3 de 5</div>
+                <div class="question-title">
+                  Não precisa de valores exatos para a nova casa — uma estimativa basta
+                </div>
+                <div class="question-description desktop-only">
+                  Quanto mais realista for a estimativa do valor da casa que tem em mente, mais precisa será a análise de viabilidade.
+                </div>
+                <div class="question-description mobile-only">
+                  Indique o valor aproximado da casa que pretende comprar.
+                </div>
+              </div>
+
+              <div class="input-group">
+                <label for="valor_nova_casa" class="input-label">
+                  Valor aproximado da casa que pretende comprar
+                </label>
+                <input
+                  type="number"
+                  id="valor_nova_casa"
+                  name="valor_nova_casa"
+                  class="input-field"
+                  placeholder="Ex.: 350000"
+                  min="50000"
+                  step="1000"
+                  required
+                />
+                <div class="input-hint">
+                  Se estiver a considerar diferentes zonas, use a média dos valores que tem visto nos anúncios.
+                </div>
+              </div>
+
+              <div class="options-grid">
+                <div class="option-card">
+                  <input
+                    type="radio"
+                    name="poupanca_para_entrada"
+                    id="entrada_sim"
+                    value="Sim, tenho poupança reservada"
+                    class="option-input"
+                    required
+                  />
+                  <label for="entrada_sim" class="option-label">
+                    <span class="option-title">Tenho poupança para a entrada</span>
+                    <span class="option-subtitle">Já reservei algum valor para dar como entrada</span>
+                  </label>
+                </div>
+                <div class="option-card">
+                  <input
+                    type="radio"
+                    name="poupanca_para_entrada"
+                    id="entrada_nao"
+                    value="Não, dependo da venda do imóvel atual"
+                    class="option-input"
+                    required
+                  />
+                  <label for="entrada_nao" class="option-label">
+                    <span class="option-title">Dependo da venda do imóvel atual</span>
+                    <span class="option-subtitle">A entrada virá sobretudo do valor de venda</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="question-group" data-step-group="4">
+              <div class="question-header">
+                <div class="question-number">Passo 4 de 5</div>
+                <div class="question-title">
+                  O prazo define a estratégia ideal para si
+                </div>
+                <div class="question-description desktop-only">
+                  Quanto mais claro for o seu horizonte temporal, mais alinhadas estarão as recomendações para a venda do imóvel atual e compra da nova casa.
+                </div>
+                <div class="question-description mobile-only">
+                  Diga-nos em quanto tempo gostaria de concretizar a mudança.
+                </div>
+              </div>
+
+              <div class="options-grid">
+                <div class="option-card">
+                  <input
+                    type="radio"
+                    name="prazo_troca"
+                    id="prazo_3"
+                    value="Nos próximos 3 meses"
+                    class="option-input"
+                    required
+                  />
+                  <label for="prazo_3" class="option-label">
+                    <span class="option-title">Nos próximos 3 meses</span>
+                    <span class="option-subtitle">Preciso de avançar rapidamente</span>
+                  </label>
+                </div>
+                <div class="option-card">
+                  <input
+                    type="radio"
+                    name="prazo_troca"
+                    id="prazo_6"
+                    value="Entre 3 a 6 meses"
+                    class="option-input"
+                    required
+                  />
+                  <label for="prazo_6" class="option-label">
+                    <span class="option-title">Entre 3 a 6 meses</span>
+                    <span class="option-subtitle">Estou a preparar a mudança</span>
+                  </label>
+                </div>
+                <div class="option-card">
+                  <input
+                    type="radio"
+                    name="prazo_troca"
+                    id="prazo_12"
+                    value="Entre 6 a 12 meses"
+                    class="option-input"
+                    required
+                  />
+                  <label for="prazo_12" class="option-label">
+                    <span class="option-title">Entre 6 a 12 meses</span>
+                    <span class="option-subtitle">Quero planear com calma</span>
+                  </label>
+                </div>
+                <div class="option-card">
+                  <input
+                    type="radio"
+                    name="prazo_troca"
+                    id="prazo_indefinido"
+                    value="Ainda estou a avaliar possibilidades"
+                    class="option-input"
+                    required
+                  />
+                  <label for="prazo_indefinido" class="option-label">
+                    <span class="option-title">Ainda estou a avaliar possibilidades</span>
+                    <span class="option-subtitle">Quero perceber se faz sentido avançar</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="question-group" data-step-group="5">
+              <div class="question-header">
+                <div class="question-number">Passo 5 de 5</div>
+                <div class="question-title">
+                  Deixe os seus dados para receber a análise personalizada
+                </div>
+                <div class="question-description desktop-only">
+                  Enviamos-lhe a análise por email e entramos em contacto para esclarecer dúvidas ou ajustar o cenário à sua realidade.
+                </div>
+                <div class="question-description mobile-only">
+                  Enviamos-lhe a análise por email e falamos consigo para adaptar o cenário.
+                </div>
+              </div>
+
+              <div class="input-row">
+                <div class="input-group">
+                  <label for="nome" class="input-label">Nome completo</label>
+                  <input
+                    type="text"
+                    id="nome"
+                    name="nome"
+                    class="input-field"
+                    placeholder="Ex.: Ana Silva"
+                    required
+                  />
+                </div>
+                <div class="input-group">
+                  <label for="email" class="input-label">Email</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    class="input-field"
+                    placeholder="Ex.: ana@email.com"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="input-group">
+                <label for="telefone" class="input-label">Telemóvel</label>
+                <div class="flag-input-wrapper">
+                  <div class="flag-prefix">
+                    <span class="flag-icon">🇵🇹</span>
+                    <span>+351</span>
+                  </div>
+                  <input
+                    type="tel"
+                    id="telefone"
+                    name="telefone"
+                    class="input-field phone-input"
+                    placeholder="Ex.: 912 345 678"
+                    required
+                  />
+                </div>
+                <div class="input-hint">
+                  Apenas utilizamos este contacto para esclarecer dúvidas sobre a análise ou agendar uma conversa, se fizer sentido.
+                </div>
+              </div>
+
+              <div class="input-group">
+                <label for="zona_imovel" class="input-label">
+                  Localização aproximada do seu imóvel atual
+                </label>
+                <input
+                  type="text"
+                  id="zona_imovel"
+                  name="zona_imovel"
+                  class="input-field"
+                  placeholder="Ex.: Lumiar, Lisboa"
+                  required
+                />
+                <div class="input-hint">
+                  Permite ajustar a análise a preços de mercado mais próximos da sua realidade.
+                </div>
+              </div>
+
+              <div class="terms-text">
+                Os seus dados são usados exclusivamente para lhe enviar o resultado e entrar em contacto consigo sobre este tema.
+                Não partilhamos informações com terceiros.
+              </div>
+            </div>
+
+            <div class="button-row">
+              <div class="button-group">
+                <button type="button" id="prev-button" class="secondary-button" disabled>
+                  <span>◀</span>
+                  <span>Anterior</span>
+                </button>
+                <button type="button" id="next-button" class="primary-button">
+                  <span>Continuar</span>
+                  <span>▶</span>
+                </button>
+                <button type="submit" id="submit-button" class="primary-button" style="display: none;">
+                  <span>Ver análise</span>
+                  <span>⚡</span>
+                </button>
+              </div>
+              <div class="button-subtext desktop-only">
+                Tempo restante estimado: <span>menos de 1 minuto</span>
+              </div>
+              <div class="button-subtext mobile-only">
+                Falta pouco para ver o resultado
+              </div>
+            </div>
+
+            <div class="safety-row">
+              <div class="shield-icon">✓</div>
+              <div>
+                <span class="safety-highlight">Simulação sem compromisso.</span>
+                Pode decidir avançar ou não após ver o cenário.
+              </div>
+            </div>
+          </form>
+
+          <div id="result-card" class="result-card">
+            <div class="result-header">
+              <div class="result-icon">✓</div>
+              <div>
+                <div class="result-title">A análise está concluída. O cenário é favorável.</div>
+                <div class="result-tag">Simulação concluída com sucesso</div>
+              </div>
+            </div>
+            <div class="result-text">
+              Com base nas suas respostas, existe uma boa probabilidade de conseguir trocar de casa de forma segura, utilizando o valor do seu imóvel atual como alavanca principal.
+            </div>
+            <div class="result-quote">
+              "Com a estratégia certa, trocar de casa pode ser mais simples do que imagina — e mais vantajoso do que esperar."
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="tl-step">
-        <div class="tl-dot d3">3</div>
-        <div class="tl-title">Escritura e mudança</div>
-        <p class="tl-desc">Acompanhamos todo o processo até à entrega das chaves — documentação, banco, notário e coordenação logística.</p>
-      </div>
-    </div>
+      <div class="secondary-card">
+        <div class="secondary-floating-badge">
+          <div class="secondary-badge-icon">ℹ️</div>
+          <span>Apoio especializado em cada etapa</span>
+        </div>
+        <div class="secondary-card-content">
+          <div class="secondary-header">
+            <div class="secondary-title">
+              O que acontece depois de preencher a simulação?
+            </div>
+            <div class="secondary-subtitle">
+              Após enviar as suas respostas, fazemos uma análise personalizada com base no seu imóvel, no valor da casa que pretende e no seu prazo.
+            </div>
+          </div>
 
-    <!-- O que considerar -->
-    <div class="sec-heading" style="margin-top:2.5rem"><div class="sec-line"></div><div class="sec-title">O que deve considerar antes de avançar</div><div class="sec-line"></div></div>
+          <div class="benefits-list">
+            <div class="benefit-item">
+              <div class="benefit-icon">1</div>
+              <div class="benefit-content">
+                <div class="benefit-title">Avaliação realista do seu imóvel</div>
+                <div class="benefit-text">
+                  Determinamos o valor de mercado real com base em transações recentes na sua zona, evitando tanto expectativas inflacionadas como vendas abaixo do valor justo.
+                </div>
+              </div>
+            </div>
+            <div class="benefit-item">
+              <div class="benefit-icon">2</div>
+              <div class="benefit-content">
+                <div class="benefit-title">Análise de viabilidade da troca de casa</div>
+                <div class="benefit-text">
+                  Comparamos o valor potencial de venda, o montante em dívida e o valor da nova casa para perceber se a operação é equilibrada e sustentável para si.
+                </div>
+              </div>
+            </div>
+            <div class="benefit-item">
+              <div class="benefit-icon">3</div>
+              <div class="benefit-content">
+                <div class="benefit-title">Estratégia personalizada para avançar</div>
+                <div class="benefit-text">
+                  Analisamos qual a abordagem mais segura e vantajosa para a sua situação específica — seja vender primeiro, avançar com crédito ponte ou outra solução.
+                </div>
+              </div>
+            </div>
+          </div>
 
-    <div class="warn-list">
-      <div class="warn-item">
-        <span class="warn-num">01</span>
-        <div class="warn-content">
-          <div class="warn-title">Conheça o valor real do seu imóvel</div>
-          <p class="warn-text">A maioria dos proprietários desconhece o valor atual de mercado. Uma avaliação profissional pode revelar uma margem de negociação muito superior ao esperado.</p>
+          <div class="info-list">
+            <div class="info-item">
+              A maioria dos proprietários desconhece o valor atual de mercado do seu imóvel. Uma avaliação profissional pode revelar uma margem de negociação muito superior ao esperado.
+            </div>
+            <div class="info-item">
+              Ter clareza sobre o valor de venda e a capacidade de financiamento evita decisões precipitadas que podem comprometer o seu conforto financeiro a médio prazo.
+            </div>
+            <div class="info-item">
+              IMT, imposto de selo, registos, comissões e custos de mudança. Estamos disponíveis para ajudá-lo a estimar o valor total da operação, sem surpresas.
+            </div>
+            <div class="info-item">
+              A liquidação antecipada do crédito atual pode implicar comissões. Fazemos questão de analisar consigo estes pontos para garantir que a troca de casa é, de facto, vantajosa.
+            </div>
+          </div>
+
+          <div class="expert-card">
+            <div class="expert-header">
+              <div class="expert-avatar">PB</div>
+              <div>
+                <div class="expert-name">Pedro Bernardes</div>
+                <div class="expert-role">Especialista em mediação imobiliária</div>
+              </div>
+            </div>
+            <div class="expert-text">
+              "Trabalhamos diariamente com famílias que querem trocar de casa, mas têm receio de dar o passo. O objetivo desta simulação é dar-lhe uma visão clara do que é possível fazer — sem promessas irreais."
+            </div>
+          </div>
+
+          <div class="note-badge">
+            <div class="note-badge-icon">✓</div>
+            <div>
+              A análise é sempre feita por um consultor, não por um sistema automático.
+            </div>
+          </div>
         </div>
       </div>
-      <div class="warn-item">
-        <span class="warn-num">02</span>
-        <div class="warn-content">
-          <div class="warn-title">Calcule todos os encargos da transição</div>
-          <p class="warn-text">IMT, imposto de selo, registos, comissões e custos de mudança. Estamos disponíveis para ajudá-lo a estimar o valor total sem surpresas.</p>
-        </div>
-      </div>
-      <div class="warn-item">
-        <span class="warn-num" id="wNum3">03</span>
-        <div class="warn-content">
-          <div class="warn-title" id="wT3">Considere o impacto do crédito habitação</div>
-          <p class="warn-text" id="wD3">A liquidação antecipada pode implicar comissões. Converse com o seu banco ou consulte um intermediário de crédito antes de avançar.</p>
-        </div>
-      </div>
     </div>
 
-    <!-- CTAs -->
-    <div class="sec-heading" style="margin-top:2.5rem"><div class="sec-line"></div><div class="sec-title">Próximos passos</div><div class="sec-line"></div></div>
+    <script>
+      (function () {
+        const form = document.getElementById("simulacao-form");
+        const steps = document.querySelectorAll(".question-group");
+        const stepCircles = document.querySelectorAll(".step-circle");
+        const stepLabels = document.querySelectorAll(".step-label");
+        const progressFill = document.getElementById("progress-fill");
+        const progressPercentage = document.getElementById("progress-percentage");
+        const prevButton = document.getElementById("prev-button");
+        const nextButton = document.getElementById("next-button");
+        const submitButton = document.getElementById("submit-button");
+        const resultCard = document.getElementById("result-card");
 
-    <div class="cta-stack">
-      <a href="https://wa.me/351912931023" class="cta-btn btn-wa" target="_blank" rel="noopener">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-        Falar no WhatsApp
-      </a>
+        let currentStep = 1;
+        const totalSteps = steps.length;
 
-      <div class="cta-pair">
-        <a href="tel:+351912931023" class="cta-btn btn-call">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14z"/></svg>
-          Ligar agora
-        </a>
+        function updateStepVisibility() {
+          steps.forEach((step, index) => {
+            step.classList.toggle("active", index + 1 === currentStep);
+          });
+        }
 
-        <a href="https://www.instagram.com/nathmpereira/" class="cta-btn btn-ig" target="_blank" rel="noopener">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-          Instagram
-        </a>
-      </div>
+        function updateProgress() {
+          const percentage = Math.round(((currentStep - 1) / totalSteps) * 100);
+          progressFill.style.width = percentage + "%";
+          progressPercentage.textContent = percentage + "% concluído";
 
-      <!-- Botão PDF removido -->
-      <!--
-      <button class="cta-btn btn-pdf" onclick="dlPDF()">
-        ...
-        Descarregar relatório PDF
-      </button>
-      -->
-    </div>
+          stepCircles.forEach((circle) => {
+            const stepNumber = parseInt(circle.getAttribute("data-step"), 10);
+            circle.classList.remove("active", "completed");
 
-    <div class="res-note">
-      Caso não entre em contacto, um elemento da nossa equipa entrará em contacto consigo em breve.
-    </div>
+            if (stepNumber < currentStep) {
+              circle.classList.add("completed");
+            } else if (stepNumber === currentStep) {
+              circle.classList.add("active");
+            }
+          });
 
-  </div>
-</section>
+          stepLabels.forEach((label, index) => {
+            label.classList.toggle("active", index + 1 === currentStep);
+          });
 
-<script>
-// estado global
-const A = {
-  q1t:null,q1q:null,q1z:'',
-  q2t:null,q2q:null,q2e:null,q2z:'',
-  q3c:null,q3k:null,q3p:null,
-  q4p:null,q4m:null,
-  nome:'',tel:'',email:''
-};
+          prevButton.disabled = currentStep === 1;
 
-let step = 1;
-const totalSteps = 5;
+          if (currentStep === totalSteps) {
+            nextButton.style.display = "none";
+            submitButton.style.display = "inline-flex";
+          } else {
+            nextButton.style.display = "inline-flex";
+            submitButton.style.display = "none";
+          }
+        }
 
-function qs(id){ return document.getElementById(id); }
+        function validateCurrentStep() {
+          const currentGroup = document.querySelector(
+            '.question-group[data-step-group="' + currentStep + '"]'
+          );
+          if (!currentGroup) return true;
 
-function startQuiz(){
-  qs('hero').style.display = 'none';
-  qs('quiz').style.display = 'block';
-  window.scrollTo(0,0);
-}
+          const inputs = currentGroup.querySelectorAll("input[required]");
+          for (const input of inputs) {
+            if (input.type === "radio") {
+              const name = input.name;
+              const checked = currentGroup.querySelector(
+                'input[name="' + name + '"]:checked'
+              );
+              if (!checked) return false;
+            } else if (!input.value.trim()) {
+              return false;
+            }
+          }
+          return true;
+        }
 
-function showStep(n){
-  document.querySelectorAll('.step').forEach(s=>s.classList.remove('active','anim-in'));
-  const el = qs('s'+n);
-  if(el){ el.classList.add('active','anim-in'); }
-  step = n;
-  qs('sCounter').textContent = 'Passo ' + n + ' de ' + totalSteps;
-  const perc = (n/totalSteps)*100;
-  qs('pFill').style.width = perc + '%';
-  qs('btnBack').style.display = n===1 ? 'none' : 'inline-block';
-  qs('btnNext').textContent = n===totalSteps ? 'Ver resultado' : 'Continuar';
-}
+        function goToNextStep() {
+          if (!validateCurrentStep()) {
+            currentStep = currentStep;
+            return;
+          }
+          if (currentStep < totalSteps) {
+            currentStep++;
+            updateStepVisibility();
+            updateProgress();
+          }
+        }
 
-function goNext(){
-  if(step < totalSteps){
-    showStep(step+1);
-  } else {
-    gerarResultado();
-  }
-}
+        function goToPrevStep() {
+          if (currentStep > 1) {
+            currentStep--;
+            updateStepVisibility();
+            updateProgress();
+          }
+        }
 
-function goBack(){
-  if(step>1){ showStep(step-1); }
-}
+        nextButton.addEventListener("click", (e) => {
+          e.preventDefault();
+          goToNextStep();
+        });
 
-function pick(el, key, val){
-  if(el.parentElement){
-    el.parentElement.querySelectorAll('.opt-card').forEach(c=>c.classList.remove('sel'));
-  }
-  el.classList.add('sel');
-  A[key]=val;
+        prevButton.addEventListener("click", (e) => {
+          e.preventDefault();
+          goToPrevStep();
+        });
 
-  if(key==='q2t'){
-    const wrap = qs('s2q-wrap');
-    if(val==='terreno' || val==='nenhum'){
-      wrap.style.display='none';
-      A.q2q=null;
-    } else {
-      wrap.style.display='block';
-    }
-  }
-}
+        form.addEventListener("submit", () => {
+          document.querySelectorAll('button[type="submit"]').forEach((btn) => {
+            btn.disabled = true;
+          });
+          resultCard.classList.add("visible");
+        });
 
-function radio(el,key,val){
-  const group = el.parentElement;
-  group.querySelectorAll('.opt-row').forEach(r=>r.classList.remove('sel'));
-  el.classList.add('sel');
-  A[key]=val;
-}
-
-function toggleCredito(show){
-  const w = qs('credito-wrap');
-  w.style.display = show ? 'block' : 'none';
-  if(!show){ A.q3k=null; }
-}
-
-function gerarResultado(){
-  qs('quiz').style.display='none';
-  qs('resultado').style.display='block';
-  window.scrollTo(0,0);
-
-  let score = 5;
-
-  if(A.q3p==='0'){ score -= 1; }
-  if(A.q3p==='1'){ score += 0; }
-  if(A.q3p==='2'){ score += 1; }
-  if(A.q3p==='3'){ score += 2; }
-
-  if(A.q3c==='nao'){ score += 1; }
-
-  if(A.q4p==='urgente'){ score -= 1; }
-  if(A.q4p==='3m'){ score += 0; }
-  if(A.q4p==='6m'){ score += 1; }
-  if(A.q4p==='mais6'){ score += 1; }
-
-  if(A.q2t==='nenhum'){ score += 1; }
-
-  if(A.q1t && A.q2t && A.q1t===A.q2t){ score += 0.5; }
-
-  if(A.q3k==='d'){ score -= 1; }
-
-  if(score < 0) score=0;
-  if(score > 10) score=10;
-
-  qs('rScore').textContent = score.toFixed(1).replace('.0','');
-  qs('rBar').style.width = (score*10)+'%';
-
-  let badgeText = 'Moderado';
-  let badgeClass = 'badge-mod';
-  let title = 'Há potencial para avançar, com alguns ajustes.';
-  let sub = 'A análise mostra um cenário possível, mas com pontos que exigem cuidado na execução.';
-
-  if(score >= 8){
-    badgeText = 'Excelente';
-    badgeClass = 'badge-exc';
-    title = 'O seu perfil indica condições excecionais para avançar.';
-    sub = 'A conjugação entre capitais próprios, crédito e prazo torna a troca de casa especialmente favorável.';
-  } else if(score >= 6){
-    badgeText = 'Bom';
-    badgeClass = 'badge-bom';
-    title = 'O cenário é favorável, com alguns pontos a afinar.';
-    sub = 'Com planeamento e a estratégia adequada, tem boas condições para concretizar a mudança.';
-  }
-
-  qs('rBadge').textContent = badgeText;
-  qs('rBadge').className = 'score-badge ' + badgeClass;
-  qs('rTitle').textContent = title;
-  qs('rSub').textContent = sub;
-
-  let prazoLabel = 'Prazo flexível';
-  if(A.q4p==='urgente') prazoLabel = 'O mais rápido possível';
-  if(A.q4p==='3m') prazoLabel = 'Menos de 3 meses';
-  if(A.q4p==='6m') prazoLabel = '3 a 6 meses';
-  if(A.q4p==='mais6') prazoLabel = 'Mais de 6 meses';
-  qs('rPrazo').textContent = prazoLabel;
-
-  let motivoLabel = 'Não indicado';
-  if(A.q4m==='familia') motivoLabel = 'Família e necessidade de espaço';
-  if(A.q4m==='localizacao') motivoLabel = 'Mudança de zona/localização';
-  if(A.q4m==='upgrade') motivoLabel = 'Upgrade de qualidade de vida';
-  if(A.q4m==='financeiro') motivoLabel = 'Gestão financeira/patrimonial';
-  if(A.q4m==='outro') motivoLabel = 'Outro motivo pessoal';
-  qs('rMotivo').textContent = motivoLabel;
-
-  if(A.q3c==='nao'){
-    qs('wNum3').textContent = '03';
-    qs('wT3').textContent = 'Tire partido do facto de não ter crédito';
-    qs('wD3').textContent = 'Ter o imóvel pago dá-lhe margem negocial adicional. Use essa vantagem para negociar melhor o valor de venda e as condições da próxima compra.';
-  } else {
-    qs('wNum3').textContent = '03';
-    qs('wT3').textContent = 'Considere o impacto do crédito habitação';
-    qs('wD3').textContent = 'A liquidação antecipada pode implicar comissões. Converse com o seu banco ou consulte um intermediário de crédito antes de avançar.';
-  }
-}
-</script>
-
-</body>
+        updateStepVisibility();
+        updateProgress();
+      })();
+    </script>
+  </body>
 </html>
