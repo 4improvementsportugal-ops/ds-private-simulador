@@ -1255,7 +1255,7 @@ body {
 </section>
 
 <script>
-const WEBHOOK_URL = 'https://services.leadconnectorhq.com/hooks/X8awZ8whfQtNiTBTcESn/webhook-trigger/e5e2058b-5969-4f63-bf50-4d5b26e68945';
+const WEBHOOK_URL = 'https://services.leadconnectorhq.com/hooks/X8awZ8whfQtNiTBTcESn/webhook-trigger/c2089a05-ec81-4c91-b17b-0571c32f4176';
 
 const A = {
   q1t:null,q1q:null,q1z:'',
@@ -1402,9 +1402,10 @@ function enviarWebhook(){
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
-      mode: 'no-cors',
       keepalive: true
-    }).catch(function(err){ console.warn('Webhook erro:', err); });
+    })
+    .then(function(r){ console.log('Webhook resposta:', r.status); })
+    .catch(function(err){ console.warn('Webhook erro:', err); });
   } catch(err){
     console.warn('Webhook exceção:', err);
   }
