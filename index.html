@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>DS Private — Simulador de Troca de Casa</title>
-
   <!-- Meta Pixel Code -->
 <script>
 !function(f,b,e,v,n,t,s)
@@ -22,7 +21,7 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=2974835026201382&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
-  
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
@@ -40,12 +39,10 @@ src="https://www.facebook.com/tr?id=2974835026201382&ev=PageView&noscript=1"
   --branco: #FDFAF4;
   --verde: #1F5C3A;
   --azul: #1A3F6E;
+  --erro: #9A3B33;
 }
-
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-
 html { scroll-behavior: smooth; }
-
 body {
   font-family: 'DM Sans', sans-serif;
   background: var(--bege);
@@ -53,7 +50,6 @@ body {
   overflow-x: hidden;
   min-height: 100vh;
 }
-
 /* ── HERO ─────────────────────────────────── */
 #hero {
   min-height: 100svh;
@@ -62,13 +58,11 @@ body {
   display: flex;
   flex-direction: column;
 }
-
 .hero-img {
   position: absolute;
   inset: 0;
   background: url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=900&q=85') center 40%/cover no-repeat;
 }
-
 .hero-grad {
   position: absolute;
   inset: 0;
@@ -80,15 +74,12 @@ body {
     rgba(14,11,8,.92) 100%
   );
 }
-
 .hero-topbar {
   position: relative; z-index: 2;
   display: flex; align-items: center; justify-content: space-between;
   padding: 1.3rem 1.5rem;
 }
-
 .logo { display: flex; align-items: center; gap: .6rem; }
-
 .logo-mark {
   width: 34px; height: 34px;
   background: var(--ouro);
@@ -98,14 +89,12 @@ body {
   color: var(--carvao);
   clip-path: polygon(7px 0%, 100% 0%, calc(100% - 7px) 100%, 0% 100%);
 }
-
 .logo-name {
   font-family: 'Playfair Display', serif;
   font-size: .95rem; font-weight: 400;
   color: rgba(245,240,232,.9);
   letter-spacing: .14em; text-transform: uppercase;
 }
-
 .hero-tag {
   font-size: .6rem; letter-spacing: .16em;
   text-transform: uppercase;
@@ -114,7 +103,6 @@ body {
   border: 1px solid rgba(201,169,110,.25);
   padding: .25rem .6rem;
 }
-
 .hero-body {
   position: relative; z-index: 2;
   flex: 1;
@@ -122,7 +110,6 @@ body {
   justify-content: flex-end;
   padding: 1.5rem 1.5rem 2rem;
 }
-
 .hero-pill {
   display: inline-flex; align-items: center; gap: .5rem;
   background: rgba(201,169,110,.15);
@@ -131,20 +118,17 @@ body {
   margin-bottom: 1.2rem;
   width: fit-content;
 }
-
 .hero-pill-dot {
   width: 6px; height: 6px;
   border-radius: 50%;
   background: var(--ouro);
   flex-shrink: 0;
 }
-
 .hero-pill-text {
   font-size: .65rem; letter-spacing: .12em;
   text-transform: uppercase; font-weight: 500;
   color: var(--ouro3);
 }
-
 .hero-h1 {
   font-family: 'Playfair Display', serif;
   font-size: clamp(2rem, 7vw, 2.6rem);
@@ -154,13 +138,11 @@ body {
   margin-bottom: .9rem;
   letter-spacing: -.015em;
 }
-
 .hero-h1 em {
   font-style: italic;
   font-weight: 400;
   color: var(--ouro3);
 }
-
 .hero-sub {
   font-size: .88rem;
   font-weight: 300;
@@ -168,7 +150,6 @@ body {
   line-height: 1.65;
   margin-bottom: 1.8rem;
 }
-
 .btn-hero {
   display: flex; align-items: center; justify-content: center; gap: .7rem;
   background: var(--ouro);
@@ -181,11 +162,9 @@ body {
   width: 100%;
   transition: background .2s, transform .15s;
 }
-
 .btn-hero:hover { background: var(--ouro2); transform: translateY(-1px); }
 .btn-hero:active { transform: scale(.98); }
 .btn-hero svg { flex-shrink: 0; }
-
 .hero-trust {
   position: relative; z-index: 2;
   display: flex; align-items: center; justify-content: center; gap: 1rem;
@@ -193,45 +172,36 @@ body {
   border-top: 1px solid rgba(201,169,110,.12);
   background: rgba(14,11,8,.5);
 }
-
 .trust-item {
   display: flex; align-items: center; gap: .4rem;
   font-size: .68rem; font-weight: 400;
   color: rgba(245,240,232,.45);
   letter-spacing: .04em;
 }
-
 .trust-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--ouro); opacity: .5; flex-shrink: 0; }
-
 .hero-line { display: none; }
-
 /* ── QUIZ ─────────────────────────────────── */
 #quiz {
   display: none;
   min-height: 100svh;
   background: var(--bege);
 }
-
 .progress-strip {
   position: sticky; top: 0; z-index: 50;
   background: var(--bege2);
   height: 3px;
 }
-
 .progress-fill {
   height: 100%;
   background: var(--ouro);
   transition: width .5s cubic-bezier(.4,0,.2,1);
 }
-
 .quiz-topbar {
   display: flex; align-items: center; justify-content: space-between;
   padding: 1.1rem 1.5rem;
   border-bottom: 1px solid rgba(110,100,90,.12);
 }
-
 .quiz-logo-mark { display: flex; align-items: center; gap: .5rem; }
-
 .q-logo-box {
   width: 28px; height: 28px;
   background: var(--preto);
@@ -241,36 +211,30 @@ body {
   color: var(--ouro);
   clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
 }
-
 .q-logo-name {
   font-family: 'Playfair Display', serif;
   font-size: .8rem; font-weight: 400;
   color: var(--preto); letter-spacing: .1em;
   text-transform: uppercase;
 }
-
 .step-counter {
   font-size: .68rem;
   letter-spacing: .15em;
   text-transform: uppercase;
   color: var(--cinza);
 }
-
 .quiz-main {
   padding: 0 1.5rem 5rem;
   max-width: 520px;
   margin: 0 auto;
 }
-
 .step { display: none; }
 .step.active { display: block; }
-
 .step-head {
   padding: 2rem 0 1.5rem;
   border-bottom: 1px solid rgba(110,100,90,.1);
   margin-bottom: 1.8rem;
 }
-
 .step-num {
   font-family: 'Playfair Display', serif;
   font-size: 3.5rem;
@@ -280,7 +244,6 @@ body {
   letter-spacing: -.03em;
   margin-bottom: .1rem;
 }
-
 .step-q {
   font-family: 'Playfair Display', serif;
   font-size: clamp(1.25rem, 4.5vw, 1.55rem);
@@ -288,7 +251,6 @@ body {
   color: var(--preto);
   line-height: 1.3;
 }
-
 .step-hint {
   font-size: .75rem;
   color: var(--cinza);
@@ -296,13 +258,11 @@ body {
   margin-top: .35rem;
   letter-spacing: .02em;
 }
-
 .sub-q {
   margin-top: 2rem;
   padding-top: 1.5rem;
   border-top: 1px solid rgba(110,100,90,.08);
 }
-
 .sub-q-label {
   font-size: .68rem;
   letter-spacing: .15em;
@@ -311,16 +271,14 @@ body {
   font-weight: 500;
   margin-bottom: .9rem;
 }
-
+.req-star { color: var(--erro); font-weight: 700; margin-left: .15rem; }
 .opt-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: .6rem;
   margin-bottom: .5rem;
 }
-
 .opt-grid.four { grid-template-columns: repeat(4, 1fr); }
-
 .opt-card {
   border: 1px solid rgba(110,100,90,.18);
   background: var(--branco);
@@ -331,14 +289,11 @@ body {
   user-select: none;
   position: relative;
 }
-
 .opt-card:active { transform: scale(.97); }
-
 .opt-card.sel {
   border-color: var(--ouro);
   background: rgba(201,169,110,.07);
 }
-
 .opt-card.sel::after {
   content: '';
   position: absolute;
@@ -346,23 +301,19 @@ body {
   height: 2px;
   background: var(--ouro);
 }
-
 .opt-icon {
   font-size: 1.5rem;
   line-height: 1;
   margin-bottom: .45rem;
   display: block;
 }
-
 .opt-label {
   font-size: .75rem;
   font-weight: 500;
   color: var(--preto);
   letter-spacing: .04em;
 }
-
 .opt-list { display: flex; flex-direction: column; gap: .45rem; }
-
 .opt-row {
   display: flex; align-items: center; gap: .9rem;
   padding: .85rem 1rem;
@@ -372,14 +323,11 @@ body {
   transition: border-color .18s, background .18s;
   user-select: none;
 }
-
 .opt-row:hover { border-color: rgba(201,169,110,.5); background: rgba(201,169,110,.04); }
-
 .opt-row.sel {
   border-color: var(--ouro);
   background: rgba(201,169,110,.07);
 }
-
 .opt-radio {
   width: 16px; height: 16px;
   border: 1.5px solid rgba(110,100,90,.4);
@@ -388,12 +336,10 @@ body {
   position: relative;
   transition: border-color .18s;
 }
-
 .opt-row.sel .opt-radio {
   border-color: var(--ouro);
   background: var(--ouro);
 }
-
 .opt-row.sel .opt-radio::after {
   content: '';
   position: absolute;
@@ -401,16 +347,13 @@ body {
   border-radius: 50%;
   background: var(--carvao);
 }
-
 .opt-text {
   font-size: .82rem;
   color: var(--preto);
   font-weight: 400;
   line-height: 1.4;
 }
-
 .field { margin-bottom: .5rem; }
-
 .field-label {
   display: block;
   font-size: .65rem;
@@ -420,7 +363,6 @@ body {
   font-weight: 500;
   margin-bottom: .4rem;
 }
-
 .quiz-input, .quiz-select {
   width: 100%;
   padding: .8rem 1rem;
@@ -432,10 +374,8 @@ body {
   outline: none;
   transition: border-color .18s;
 }
-
 .quiz-input:focus, .quiz-select:focus { border-color: var(--ouro); }
 .quiz-input::placeholder { color: var(--cinza); font-weight: 300; }
-
 .quiz-select {
   appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23C9A96E'/%3E%3C/svg%3E");
@@ -443,9 +383,10 @@ body {
   background-position: right .9rem center;
   cursor: pointer;
 }
-
+/* estado de erro de validação */
+.invalid-mark { outline: 1.5px solid var(--erro); outline-offset: 2px; }
+.quiz-input.invalid-mark, .quiz-select.invalid-mark { border-color: var(--erro); outline: none; }
 .cform { display: flex; flex-direction: column; gap: .8rem; }
-
 .quiz-nav {
   position: fixed; bottom: 0; left: 0; right: 0; z-index: 40;
   background: var(--bege);
@@ -455,9 +396,7 @@ body {
   max-width: 520px;
   margin: 0 auto;
 }
-
 .quiz-main { padding-bottom: 6rem; }
-
 .btn-back {
   padding: .8rem 1.1rem;
   border: 1px solid rgba(110,100,90,.25);
@@ -472,9 +411,7 @@ body {
   transition: border-color .18s, color .18s;
   flex-shrink: 0;
 }
-
 .btn-back:hover { border-color: var(--ouro); color: var(--ouro2); }
-
 .btn-next {
   flex: 1;
   padding: .85rem 1rem;
@@ -490,23 +427,46 @@ body {
   transition: background .18s;
   display: flex; align-items: center; justify-content: center; gap: .5rem;
 }
-
 .btn-next:hover { background: var(--carvao); }
 .btn-next:disabled { opacity: .6; cursor: wait; }
-
+/* mensagem de erro */
+.quiz-error {
+  position: fixed;
+  left: 0; right: 0;
+  bottom: 4.6rem;
+  max-width: 520px;
+  margin: 0 auto;
+  z-index: 45;
+  display: none;
+  align-items: flex-start; gap: .55rem;
+  background: var(--erro);
+  color: #fff;
+  font-size: .74rem;
+  font-weight: 400;
+  line-height: 1.45;
+  padding: .75rem 1.1rem;
+  box-shadow: 0 -4px 18px rgba(0,0,0,.12);
+}
+.quiz-error.show { display: flex; animation: aIn .25s ease both; }
+.quiz-error svg { flex-shrink: 0; margin-top: .1rem; }
+.shake { animation: shake .4s cubic-bezier(.36,.07,.19,.97); }
+@keyframes shake {
+  10%, 90% { transform: translateX(-2px); }
+  20%, 80% { transform: translateX(3px); }
+  30%, 50%, 70% { transform: translateX(-5px); }
+  40%, 60% { transform: translateX(5px); }
+}
 /* ── RESULTADO ────────────────────────────── */
 #resultado {
   display: none;
   background: var(--bege);
 }
-
 .res-band {
   background: var(--preto);
   padding: 2.5rem 1.5rem 2rem;
   position: relative;
   overflow: hidden;
 }
-
 .res-band::before {
   content: 'DS';
   position: absolute;
@@ -518,14 +478,11 @@ body {
   letter-spacing: -.05em;
   user-select: none;
 }
-
 .res-topbar {
   display: flex; align-items: center; justify-content: space-between;
   margin-bottom: 2rem;
 }
-
 .res-logo-row { display: flex; align-items: center; gap: .5rem; }
-
 .res-logo-box {
   width: 28px; height: 28px;
   background: var(--ouro);
@@ -535,20 +492,17 @@ body {
   color: var(--carvao);
   clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
 }
-
 .res-logo-name {
   font-family: 'Playfair Display', serif;
   font-size: .8rem; font-weight: 400;
   color: rgba(245,240,232,.7); letter-spacing: .1em;
   text-transform: uppercase;
 }
-
 .res-tag {
   font-size: .62rem; letter-spacing: .15em;
   text-transform: uppercase;
   color: rgba(201,169,110,.5);
 }
-
 .res-check {
   width: 44px; height: 44px;
   border: 1.5px solid var(--ouro);
@@ -556,11 +510,8 @@ body {
   margin-bottom: 1.2rem;
   animation: fadeIn .4s ease both;
 }
-
 .res-check svg { stroke: var(--ouro); }
-
 @keyframes fadeIn { from { opacity:0; transform:scale(.8); } to { opacity:1; transform:scale(1); } }
-
 .res-title {
   font-family: 'Playfair Display', serif;
   font-size: clamp(1.3rem, 4.5vw, 1.75rem);
@@ -569,20 +520,17 @@ body {
   line-height: 1.25;
   margin-bottom: .5rem;
 }
-
 .res-subtitle {
   font-size: .78rem;
   color: rgba(245,240,232,.4);
   font-weight: 300;
   line-height: 1.6;
 }
-
 .res-body {
   padding: 1.8rem 1.5rem 3rem;
   max-width: 520px;
   margin: 0 auto;
 }
-
 .score-panel {
   background: var(--branco);
   border: 1px solid rgba(201,169,110,.25);
@@ -590,11 +538,9 @@ body {
   margin-bottom: 1rem;
   display: flex; flex-direction: column; gap: 1rem;
 }
-
 .score-top {
   display: flex; align-items: flex-end; justify-content: space-between;
 }
-
 .score-num {
   font-family: 'Playfair Display', serif;
   font-size: 3rem;
@@ -602,14 +548,12 @@ body {
   color: var(--preto);
   line-height: 1;
 }
-
 .score-denom {
   font-size: 1rem;
   color: var(--cinza);
   font-weight: 300;
   margin-left: .1rem;
 }
-
 .score-badge {
   font-size: .65rem;
   font-weight: 500;
@@ -618,22 +562,18 @@ body {
   padding: .3rem .75rem;
   border: 1px solid currentColor;
 }
-
 .badge-exc { color: var(--verde); }
 .badge-bom { color: var(--ouro2); }
 .badge-mod { color: #8B5E2A; }
-
 .score-bar-bg {
   background: var(--bege2);
   height: 4px;
 }
-
 .score-bar-fill {
   height: 100%;
   background: var(--ouro);
   transition: width 1s cubic-bezier(.4,0,.2,1) .3s;
 }
-
 .score-label {
   font-size: .65rem;
   letter-spacing: .14em;
@@ -641,14 +581,12 @@ body {
   color: var(--cinza);
   font-weight: 400;
 }
-
 .quote-block {
   border-left: 2px solid var(--ouro);
   padding: 1.1rem 1.1rem 1.1rem 1.3rem;
   background: var(--branco);
   margin-bottom: 1rem;
 }
-
 .quote-text {
   font-family: 'Playfair Display', serif;
   font-size: .95rem;
@@ -657,19 +595,16 @@ body {
   color: var(--carvao);
   line-height: 1.65;
 }
-
 .duo {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: .6rem;
   margin-bottom: 1.5rem;
 }
-
 .duo-card {
   background: var(--preto);
   padding: 1rem;
 }
-
 .duo-label {
   font-size: .58rem;
   letter-spacing: .16em;
@@ -678,7 +613,6 @@ body {
   font-weight: 400;
   margin-bottom: .4rem;
 }
-
 .duo-val {
   font-family: 'Playfair Display', serif;
   font-size: .95rem;
@@ -686,15 +620,12 @@ body {
   color: #F5F0E8;
   line-height: 1.3;
 }
-
 .sec-heading {
   display: flex; align-items: center; gap: .7rem;
   margin-bottom: 1.2rem;
   margin-top: 2rem;
 }
-
 .sec-line { flex: 1; height: 1px; background: rgba(110,100,90,.15); }
-
 .sec-title {
   font-size: .62rem;
   letter-spacing: .2em;
@@ -703,9 +634,7 @@ body {
   font-weight: 500;
   flex-shrink: 0;
 }
-
 .timeline { position: relative; padding-left: 1.8rem; }
-
 .timeline::before {
   content: '';
   position: absolute;
@@ -714,10 +643,8 @@ body {
   width: 1px;
   background: linear-gradient(180deg, rgba(201,169,110,.4), rgba(201,169,110,.15));
 }
-
 .tl-step { position: relative; margin-bottom: 1.8rem; }
 .tl-step:last-child { margin-bottom: 0; }
-
 .tl-dot {
   position: absolute;
   left: -1.8rem;
@@ -730,11 +657,9 @@ body {
   color: var(--branco);
   flex-shrink: 0;
 }
-
 .tl-dot.d1 { background: #B05B2C; }
 .tl-dot.d2 { background: var(--azul); }
 .tl-dot.d3 { background: var(--verde); }
-
 .tl-title {
   font-family: 'Playfair Display', serif;
   font-size: 1rem;
@@ -742,7 +667,6 @@ body {
   color: var(--preto);
   margin-bottom: .3rem;
 }
-
 .tl-desc {
   font-size: .76rem;
   color: var(--cinza);
@@ -750,20 +674,16 @@ body {
   font-weight: 300;
   margin-bottom: .7rem;
 }
-
 .strat-row { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
-
 .strat-card {
   border: 1px solid rgba(110,100,90,.15);
   background: var(--bege);
   padding: .9rem;
 }
-
 .strat-head {
   display: flex; align-items: center; justify-content: space-between;
   margin-bottom: .6rem;
 }
-
 .strat-name {
   font-size: .72rem;
   font-weight: 500;
@@ -771,7 +691,6 @@ body {
   letter-spacing: .04em;
   text-transform: uppercase;
 }
-
 .strat-pill {
   font-size: .55rem;
   font-weight: 500;
@@ -779,10 +698,8 @@ body {
   text-transform: uppercase;
   padding: .15rem .45rem;
 }
-
 .pill-azul { background: rgba(26,63,110,.08); color: var(--azul); }
 .pill-mel { background: rgba(176,91,44,.1); color: #B05B2C; }
-
 .strat-list { list-style: none; }
 .strat-list li {
   font-size: .7rem;
@@ -799,16 +716,13 @@ body {
   color: rgba(201,169,110,.5);
   font-size: .6rem;
 }
-
 .warn-list { display: flex; flex-direction: column; gap: .6rem; }
-
 .warn-item {
   display: flex; gap: .9rem; align-items: flex-start;
   padding: 1rem;
   background: var(--branco);
   border: 1px solid rgba(110,100,90,.12);
 }
-
 .warn-num {
   font-family: 'Playfair Display', serif;
   font-size: 1.3rem;
@@ -819,25 +733,20 @@ body {
   flex-shrink: 0;
   margin-top: -.05rem;
 }
-
 .warn-title {
   font-size: .8rem;
   font-weight: 500;
   color: var(--preto);
   margin-bottom: .25rem;
 }
-
 .warn-text {
   font-size: .73rem;
   color: var(--cinza);
   line-height: 1.55;
   font-weight: 300;
 }
-
 .cta-stack { display: flex; flex-direction: column; gap: .55rem; margin-top: 1.5rem; }
-
 .cta-pair { display: grid; grid-template-columns: 1fr 1fr; gap: .55rem; }
-
 .cta-btn {
   display: flex; align-items: center; justify-content: center; gap: .55rem;
   padding: .9rem 1rem;
@@ -851,13 +760,10 @@ body {
   text-decoration: none;
   transition: opacity .2s, transform .2s;
 }
-
 .cta-btn:hover { opacity: .9; transform: translateY(-1px); }
-
 .btn-wa { background: #1FAD50; color: #fff; }
 .btn-call { background: var(--branco); color: var(--preto); border: 1px solid rgba(110,100,90,.2); }
 .btn-ig { background: linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); color: #fff; }
-
 .res-note {
   margin-top: 1.8rem;
   padding: 1rem;
@@ -869,7 +775,6 @@ body {
   font-weight: 300;
   font-style: italic;
 }
-
 .anim-in { animation: aIn .35s ease both; }
 @keyframes aIn {
   from { opacity:0; transform: translateY(12px); }
@@ -878,12 +783,10 @@ body {
 </style>
 </head>
 <body>
-
 <!-- ─── HERO ─────────────────────────────── -->
 <section id="hero">
   <div class="hero-img"></div>
   <div class="hero-grad"></div>
-
   <div class="hero-topbar">
     <div class="logo">
       <div class="logo-mark">DS</div>
@@ -891,7 +794,6 @@ body {
     </div>
     <span class="hero-tag">Simulador gratuito</span>
   </div>
-
   <div class="hero-body">
     <div class="hero-pill">
       <span class="hero-pill-dot"></span>
@@ -906,20 +808,17 @@ body {
       <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="2" y1="8" x2="14" y2="8"/><polyline points="9 3 14 8 9 13"/></svg>
     </button>
   </div>
-
   <div class="hero-trust">
     <div class="trust-item"><span class="trust-dot"></span> Menos de 3 minutos</div>
     <div class="trust-item"><span class="trust-dot"></span> Sem compromisso</div>
     <div class="trust-item"><span class="trust-dot"></span> Resultado imediato</div>
   </div>
 </section>
-
 <!-- ─── QUIZ ──────────────────────────────── -->
 <section id="quiz">
   <div class="progress-strip">
     <div class="progress-fill" id="pFill" style="width:20%"></div>
   </div>
-
   <div class="quiz-topbar">
     <div class="quiz-logo-mark">
       <div class="q-logo-box">DS</div>
@@ -927,9 +826,7 @@ body {
     </div>
     <span class="step-counter" id="sCounter">Passo 1 de 5</span>
   </div>
-
   <div class="quiz-main">
-
     <!-- PASSO 1 -->
     <div class="step active" id="s1">
       <div class="step-head">
@@ -937,21 +834,21 @@ body {
         <h2 class="step-q">O que procura?</h2>
         <p class="step-hint">Selecione o tipo de imóvel que tem em mente</p>
       </div>
-
-      <div class="sub-q-label">Tipo de imóvel</div>
-      <div class="opt-grid">
-        <div class="opt-card" onclick="pick(this,'q1t','apartamento')">
-          <span class="opt-icon">🏢</span>
-          <span class="opt-label">Apartamento</span>
-        </div>
-        <div class="opt-card" onclick="pick(this,'q1t','moradia')">
-          <span class="opt-icon">🏡</span>
-          <span class="opt-label">Moradia</span>
+      <div class="vgroup" data-field="q1t">
+        <div class="sub-q-label">Tipo de imóvel<span class="req-star">*</span></div>
+        <div class="opt-grid">
+          <div class="opt-card" onclick="pick(this,'q1t','apartamento')">
+            <span class="opt-icon">🏢</span>
+            <span class="opt-label">Apartamento</span>
+          </div>
+          <div class="opt-card" onclick="pick(this,'q1t','moradia')">
+            <span class="opt-icon">🏡</span>
+            <span class="opt-label">Moradia</span>
+          </div>
         </div>
       </div>
-
-      <div class="sub-q">
-        <div class="sub-q-label">Tipologia</div>
+      <div class="sub-q vgroup" data-field="q1q">
+        <div class="sub-q-label">Tipologia<span class="req-star">*</span></div>
         <div class="opt-grid four">
           <div class="opt-card" onclick="pick(this,'q1q','1')"><span class="opt-icon" style="font-size:1.1rem;font-family:'Playfair Display',serif;font-weight:700;color:var(--preto)">T1</span><span class="opt-label">1 quarto</span></div>
           <div class="opt-card" onclick="pick(this,'q1q','2')"><span class="opt-icon" style="font-size:1.1rem;font-family:'Playfair Display',serif;font-weight:700;color:var(--preto)">T2</span><span class="opt-label">2 quartos</span></div>
@@ -959,15 +856,13 @@ body {
           <div class="opt-card" onclick="pick(this,'q1q','4+')"><span class="opt-icon" style="font-size:1.1rem;font-family:'Playfair Display',serif;font-weight:700;color:var(--preto)">T4+</span><span class="opt-label">4+ quartos</span></div>
         </div>
       </div>
-
-      <div class="sub-q">
-        <div class="sub-q-label">Localização pretendida</div>
+      <div class="sub-q vgroup" data-field="q1z">
+        <div class="sub-q-label">Localização pretendida<span class="req-star">*</span></div>
         <div class="field">
-          <input class="quiz-input" type="text" id="q1z" placeholder="Ex: Lisboa, Cascais, Sintra…" oninput="A.q1z=this.value">
+          <input class="quiz-input" type="text" id="q1z" placeholder="Ex: Lisboa, Cascais, Sintra…" oninput="A.q1z=this.value; clearMark(this)">
         </div>
       </div>
     </div>
-
     <!-- PASSO 2 -->
     <div class="step" id="s2">
       <div class="step-head">
@@ -975,17 +870,17 @@ body {
         <h2 class="step-q">O que precisa de vender?</h2>
         <p class="step-hint">O seu imóvel atual é o principal ativo desta operação</p>
       </div>
-
-      <div class="sub-q-label">Tipo de imóvel a vender</div>
-      <div class="opt-grid">
-        <div class="opt-card" onclick="pick(this,'q2t','apartamento')"><span class="opt-icon">🏢</span><span class="opt-label">Apartamento</span></div>
-        <div class="opt-card" onclick="pick(this,'q2t','moradia')"><span class="opt-icon">🏡</span><span class="opt-label">Moradia</span></div>
-        <div class="opt-card" onclick="pick(this,'q2t','terreno')"><span class="opt-icon">🌿</span><span class="opt-label">Terreno</span></div>
-        <div class="opt-card" onclick="pick(this,'q2t','nenhum')"><span class="opt-icon">✨</span><span class="opt-label">Não preciso vender</span></div>
+      <div class="vgroup" data-field="q2t">
+        <div class="sub-q-label">Tipo de imóvel a vender<span class="req-star">*</span></div>
+        <div class="opt-grid">
+          <div class="opt-card" onclick="pick(this,'q2t','apartamento')"><span class="opt-icon">🏢</span><span class="opt-label">Apartamento</span></div>
+          <div class="opt-card" onclick="pick(this,'q2t','moradia')"><span class="opt-icon">🏡</span><span class="opt-label">Moradia</span></div>
+          <div class="opt-card" onclick="pick(this,'q2t','terreno')"><span class="opt-icon">🌿</span><span class="opt-label">Terreno</span></div>
+          <div class="opt-card" onclick="pick(this,'q2t','nenhum')"><span class="opt-icon">✨</span><span class="opt-label">Não preciso vender</span></div>
+        </div>
       </div>
-
-      <div class="sub-q" id="s2q-wrap">
-        <div class="sub-q-label">Tipologia atual</div>
+      <div class="sub-q vgroup" id="s2q-wrap" data-field="q2q">
+        <div class="sub-q-label">Tipologia atual<span class="req-star">*</span></div>
         <div class="opt-grid four">
           <div class="opt-card" onclick="pick(this,'q2q','1')"><span class="opt-icon" style="font-size:1.1rem;font-family:'Playfair Display',serif;font-weight:700;color:var(--preto)">T1</span><span class="opt-label">1 quarto</span></div>
           <div class="opt-card" onclick="pick(this,'q2q','2')"><span class="opt-icon" style="font-size:1.1rem;font-family:'Playfair Display',serif;font-weight:700;color:var(--preto)">T2</span><span class="opt-label">2 quartos</span></div>
@@ -993,22 +888,19 @@ body {
           <div class="opt-card" onclick="pick(this,'q2q','4+')"><span class="opt-icon" style="font-size:1.1rem;font-family:'Playfair Display',serif;font-weight:700;color:var(--preto)">T4+</span><span class="opt-label">4+ quartos</span></div>
         </div>
       </div>
-
-      <div class="sub-q">
-        <div class="sub-q-label">Estado do imóvel</div>
+      <div class="sub-q vgroup" id="s2e-wrap" data-field="q2e">
+        <div class="sub-q-label">Estado do imóvel<span class="req-star">*</span></div>
         <div class="opt-list">
           <label class="opt-row" onclick="radio(this,'q2e','novo')"><span class="opt-radio"></span><span class="opt-text">Novo ou recuperado recentemente</span></label>
           <label class="opt-row" onclick="radio(this,'q2e','bom')"><span class="opt-radio"></span><span class="opt-text">Usado, bom estado geral</span></label>
           <label class="opt-row" onclick="radio(this,'q2e','obras')"><span class="opt-radio"></span><span class="opt-text">Precisa de obras ou remodelação</span></label>
         </div>
       </div>
-
-      <div class="sub-q">
-        <div class="sub-q-label">Zona do imóvel atual</div>
-        <input class="quiz-input" type="text" id="q2z" placeholder="Ex: Amadora, Porto, Setúbal…" oninput="A.q2z=this.value">
+      <div class="sub-q vgroup" id="s2z-wrap" data-field="q2z">
+        <div class="sub-q-label">Zona do imóvel atual<span class="req-star">*</span></div>
+        <input class="quiz-input" type="text" id="q2z" placeholder="Ex: Amadora, Porto, Setúbal…" oninput="A.q2z=this.value; clearMark(this)">
       </div>
     </div>
-
     <!-- PASSO 3 -->
     <div class="step" id="s3">
       <div class="step-head">
@@ -1016,22 +908,22 @@ body {
         <h2 class="step-q">Vamos perceber a sua margem de manobra</h2>
         <p class="step-hint">Não precisa de valores exatos — uma estimativa é suficiente</p>
       </div>
-
-      <div class="sub-q-label">Tem crédito habitação ativo?</div>
-      <div class="opt-list">
-        <label class="opt-row" onclick="radio(this,'q3c','sim'); toggleCredito(true)">
-          <span class="opt-radio"></span>
-          <span class="opt-text">Sim, tenho crédito habitação</span>
-        </label>
-        <label class="opt-row" onclick="radio(this,'q3c','nao'); toggleCredito(false)">
-          <span class="opt-radio"></span>
-          <span class="opt-text">Não, o imóvel está pago</span>
-        </label>
+      <div class="vgroup" data-field="q3c">
+        <div class="sub-q-label">Tem crédito habitação ativo?<span class="req-star">*</span></div>
+        <div class="opt-list">
+          <label class="opt-row" onclick="radio(this,'q3c','sim'); toggleCredito(true)">
+            <span class="opt-radio"></span>
+            <span class="opt-text">Sim, tenho crédito habitação</span>
+          </label>
+          <label class="opt-row" onclick="radio(this,'q3c','nao'); toggleCredito(false)">
+            <span class="opt-radio"></span>
+            <span class="opt-text">Não, o imóvel está pago</span>
+          </label>
+        </div>
       </div>
-
-      <div id="credito-wrap" style="display:none" class="sub-q">
-        <div class="sub-q-label">Capital em dívida (aproximado)</div>
-        <select class="quiz-select" onchange="A.q3k=this.value">
+      <div id="credito-wrap" style="display:none" class="sub-q vgroup" data-field="q3k">
+        <div class="sub-q-label">Capital em dívida (aproximado)<span class="req-star">*</span></div>
+        <select class="quiz-select" id="q3k" onchange="A.q3k=this.value; clearMark(this)">
           <option value="">Selecione…</option>
           <option value="a">Menos de 50 000 €</option>
           <option value="b">Entre 50 000 € e 100 000 €</option>
@@ -1039,9 +931,8 @@ body {
           <option value="d">Mais de 200 000 €</option>
         </select>
       </div>
-
-      <div class="sub-q">
-        <div class="sub-q-label">Capitais próprios disponíveis para entrada</div>
+      <div class="sub-q vgroup" data-field="q3p">
+        <div class="sub-q-label">Capitais próprios disponíveis para entrada<span class="req-star">*</span></div>
         <div class="opt-list">
           <label class="opt-row" onclick="radio(this,'q3p','0')"><span class="opt-radio"></span><span class="opt-text">Não tenho capitais próprios disponíveis</span></label>
           <label class="opt-row" onclick="radio(this,'q3p','1')"><span class="opt-radio"></span><span class="opt-text">Tenho alguma base (até 20 000 €)</span></label>
@@ -1050,7 +941,6 @@ body {
         </div>
       </div>
     </div>
-
     <!-- PASSO 4 -->
     <div class="step" id="s4">
       <div class="step-head">
@@ -1058,16 +948,17 @@ body {
         <h2 class="step-q">Em quanto tempo quer concretizar?</h2>
         <p class="step-hint">O prazo define a estratégia ideal para si</p>
       </div>
-
-      <div class="opt-list">
-        <label class="opt-row" onclick="radio(this,'q4p','urgente')"><span class="opt-radio"></span><span class="opt-text">O mais rápido possível</span></label>
-        <label class="opt-row" onclick="radio(this,'q4p','3m')"><span class="opt-radio"></span><span class="opt-text">Menos de 3 meses</span></label>
-        <label class="opt-row" onclick="radio(this,'q4p','6m')"><span class="opt-radio"></span><span class="opt-text">Entre 3 a 6 meses</span></label>
-        <label class="opt-row" onclick="radio(this,'q4p','mais6')"><span class="opt-radio"></span><span class="opt-text">Mais de 6 meses</span></label>
+      <div class="vgroup" data-field="q4p">
+        <div class="sub-q-label">Prazo pretendido<span class="req-star">*</span></div>
+        <div class="opt-list">
+          <label class="opt-row" onclick="radio(this,'q4p','urgente')"><span class="opt-radio"></span><span class="opt-text">O mais rápido possível</span></label>
+          <label class="opt-row" onclick="radio(this,'q4p','3m')"><span class="opt-radio"></span><span class="opt-text">Menos de 3 meses</span></label>
+          <label class="opt-row" onclick="radio(this,'q4p','6m')"><span class="opt-radio"></span><span class="opt-text">Entre 3 a 6 meses</span></label>
+          <label class="opt-row" onclick="radio(this,'q4p','mais6')"><span class="opt-radio"></span><span class="opt-text">Mais de 6 meses</span></label>
+        </div>
       </div>
-
-      <div class="sub-q">
-        <div class="sub-q-label">Principal motivo da mudança</div>
+      <div class="sub-q vgroup" data-field="q4m">
+        <div class="sub-q-label">Principal motivo da mudança<span class="req-star">*</span></div>
         <div class="opt-list">
           <label class="opt-row" onclick="radio(this,'q4m','familia')"><span class="opt-radio"></span><span class="opt-text">A família cresceu, preciso de mais espaço</span></label>
           <label class="opt-row" onclick="radio(this,'q4m','localizacao')"><span class="opt-radio"></span><span class="opt-text">Mudança de zona ou localização</span></label>
@@ -1077,7 +968,6 @@ body {
         </div>
       </div>
     </div>
-
     <!-- PASSO 5 -->
     <div class="step" id="s5">
       <div class="step-head">
@@ -1085,29 +975,30 @@ body {
         <h2 class="step-q">Estamos quase lá.</h2>
         <p class="step-hint">Deixe os seus dados para receber a análise personalizada</p>
       </div>
-
       <div class="cform">
-        <div class="field">
-          <label class="field-label">Nome completo</label>
-          <input class="quiz-input" type="text" placeholder="O seu nome" oninput="A.nome=this.value">
+        <div class="field vgroup" data-field="nome">
+          <label class="field-label">Nome completo<span class="req-star">*</span></label>
+          <input class="quiz-input" id="fNome" type="text" placeholder="O seu nome" oninput="A.nome=this.value; clearMark(this)">
         </div>
-        <div class="field">
-          <label class="field-label">Telemóvel</label>
-          <input class="quiz-input" type="tel" placeholder="+351 9XX XXX XXX" oninput="A.tel=this.value">
+        <div class="field vgroup" data-field="tel">
+          <label class="field-label">Telemóvel<span class="req-star">*</span></label>
+          <input class="quiz-input" id="fTel" type="tel" placeholder="+351 9XX XXX XXX" oninput="A.tel=this.value; clearMark(this)">
         </div>
-        <div class="field">
-          <label class="field-label">E-mail</label>
-          <input class="quiz-input" type="email" placeholder="o.seu@email.pt" oninput="A.email=this.value">
+        <div class="field vgroup" data-field="email">
+          <label class="field-label">E-mail<span class="req-star">*</span></label>
+          <input class="quiz-input" id="fEmail" type="email" placeholder="o.seu@email.pt" oninput="A.email=this.value; clearMark(this)">
         </div>
       </div>
-
       <p style="font-size:.68rem;color:var(--cinza);font-weight:300;line-height:1.6;margin-bottom:.5rem;">
         Os seus dados são usados exclusivamente para lhe enviar o resultado e entrar em contacto. Não partilhamos informações com terceiros.
       </p>
     </div>
-
   </div><!-- /quiz-main -->
-
+  <!-- ERRO -->
+  <div class="quiz-error" id="qError">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    <span id="qErrorText">Por favor responda a todas as perguntas para continuar.</span>
+  </div>
   <!-- NAV -->
   <div class="quiz-nav" id="quizNav">
     <button class="btn-back" id="btnBack" onclick="goBack()" style="display:none">← Voltar</button>
@@ -1117,10 +1008,8 @@ body {
     </button>
   </div>
 </section>
-
 <!-- ─── RESULTADO ─────────────────────────── -->
 <section id="resultado">
-
   <div class="res-band">
     <div class="res-topbar">
       <div class="res-logo-row">
@@ -1129,17 +1018,13 @@ body {
       </div>
       <span class="res-tag">Análise completa</span>
     </div>
-
     <div class="res-check" aria-label="Análise concluída">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
     </div>
-
     <h2 class="res-title" id="rTitle">O seu perfil indica condições excecionais para avançar.</h2>
     <p class="res-subtitle" id="rSub">A análise está concluída. O cenário é favorável.</p>
   </div>
-
   <div class="res-body">
-
     <div class="score-panel">
       <div class="score-label">Viabilidade de mudança</div>
       <div class="score-top">
@@ -1153,11 +1038,9 @@ body {
         <div class="score-bar-fill" id="rBar" style="width:0%"></div>
       </div>
     </div>
-
     <div class="quote-block">
       <p class="quote-text" id="rQuote">"Com a estratégia certa, trocar de casa pode ser mais simples do que imagina — e mais vantajoso do que esperar."</p>
     </div>
-
     <div class="duo">
       <div class="duo-card">
         <div class="duo-label">Prazo indicado</div>
@@ -1168,16 +1051,13 @@ body {
         <div class="duo-val" id="rMotivo">—</div>
       </div>
     </div>
-
     <div class="sec-heading"><div class="sec-line"></div><div class="sec-title">O processo de troca de casa</div><div class="sec-line"></div></div>
-
     <div class="timeline">
       <div class="tl-step">
         <div class="tl-dot d1">1</div>
         <div class="tl-title">Avaliação do imóvel atual</div>
         <p class="tl-desc">Determinamos o valor de mercado real com base em transações recentes na sua zona — sem compromisso e sem custos.</p>
       </div>
-
       <div class="tl-step">
         <div class="tl-dot d2">2</div>
         <div class="tl-title">Definição da estratégia</div>
@@ -1211,16 +1091,13 @@ body {
           </div>
         </div>
       </div>
-
       <div class="tl-step">
         <div class="tl-dot d3">3</div>
         <div class="tl-title">Escritura e mudança</div>
         <p class="tl-desc">Acompanhamos todo o processo até à entrega das chaves — documentação, banco, notário e coordenação logística.</p>
       </div>
     </div>
-
     <div class="sec-heading" style="margin-top:2.5rem"><div class="sec-line"></div><div class="sec-title">O que deve considerar antes de avançar</div><div class="sec-line"></div></div>
-
     <div class="warn-list">
       <div class="warn-item">
         <span class="warn-num">01</span>
@@ -1244,38 +1121,30 @@ body {
         </div>
       </div>
     </div>
-
     <div class="sec-heading" style="margin-top:2.5rem"><div class="sec-line"></div><div class="sec-title">Próximos passos</div><div class="sec-line"></div></div>
-
     <div class="cta-stack">
       <a href="https://wa.me/351912931023" class="cta-btn btn-wa" target="_blank" rel="noopener">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
         Falar no WhatsApp
       </a>
-
       <div class="cta-pair">
         <a href="tel:+351912931023" class="cta-btn btn-call">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14z"/></svg>
           Ligar agora
         </a>
-
         <a href="https://www.instagram.com/nathmpereira/" class="cta-btn btn-ig" target="_blank" rel="noopener">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
           Instagram
         </a>
       </div>
     </div>
-
     <div class="res-note">
       Caso não entre em contacto, um elemento da nossa equipa entrará em contacto consigo em breve.
     </div>
-
   </div>
 </section>
-
 <script>
 const WEBHOOK_URL = 'https://services.leadconnectorhq.com/hooks/X8awZ8whfQtNiTBTcESn/webhook-trigger/c2089a05-ec81-4c91-b17b-0571c32f4176';
-
 const A = {
   q1t:null,q1q:null,q1z:'',
   q2t:null,q2q:null,q2e:null,q2z:'',
@@ -1283,18 +1152,14 @@ const A = {
   q4p:null,q4m:null,
   nome:'',tel:'',email:''
 };
-
 let step = 1;
 const totalSteps = 5;
-
 function qs(id){ return document.getElementById(id); }
-
 function startQuiz(){
   qs('hero').style.display = 'none';
   qs('quiz').style.display = 'block';
   window.scrollTo(0,0);
 }
-
 function showStep(n){
   document.querySelectorAll('.step').forEach(s=>s.classList.remove('active','anim-in'));
   const el = qs('s'+n);
@@ -1305,52 +1170,140 @@ function showStep(n){
   qs('pFill').style.width = perc + '%';
   qs('btnBack').style.display = n===1 ? 'none' : 'inline-block';
   qs('btnNext').textContent = n===totalSteps ? 'Ver resultado' : 'Continuar';
+  hideError();
 }
 
+/* ── VALIDAÇÃO ─────────────────────────────── */
+function isEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+function digits(v){ return (v||'').replace(/\D/g,''); }
+
+// Devolve a lista de campos em falta no passo atual.
+function getMissing(n){
+  const miss = [];
+  if(n===1){
+    if(!A.q1t) miss.push('q1t');
+    if(!A.q1q) miss.push('q1q');
+    if(!A.q1z || !A.q1z.trim()) miss.push('q1z');
+  } else if(n===2){
+    if(!A.q2t) miss.push('q2t');
+    if(A.q2t && A.q2t!=='terreno' && A.q2t!=='nenhum' && !A.q2q) miss.push('q2q');
+    if(A.q2t && A.q2t!=='nenhum'){
+      if(!A.q2e) miss.push('q2e');
+      if(!A.q2z || !A.q2z.trim()) miss.push('q2z');
+    }
+  } else if(n===3){
+    if(!A.q3c) miss.push('q3c');
+    if(A.q3c==='sim' && !A.q3k) miss.push('q3k');
+    if(!A.q3p) miss.push('q3p');
+  } else if(n===4){
+    if(!A.q4p) miss.push('q4p');
+    if(!A.q4m) miss.push('q4m');
+  } else if(n===5){
+    if(!A.nome || !A.nome.trim()) miss.push('nome');
+    if(digits(A.tel).length < 9) miss.push('tel');
+    if(!isEmail(A.email)) miss.push('email');
+  }
+  return miss;
+}
+
+function markMissing(n, miss){
+  const stepEl = qs('s'+n);
+  stepEl.querySelectorAll('.invalid-mark').forEach(e=>e.classList.remove('invalid-mark'));
+  miss.forEach(function(field){
+    const group = stepEl.querySelector('[data-field="'+field+'"]');
+    if(!group) return;
+    const input = group.querySelector('.quiz-input, .quiz-select');
+    if(input){
+      input.classList.add('invalid-mark');
+    } else {
+      const target = group.querySelector('.opt-grid, .opt-list');
+      if(target) target.classList.add('invalid-mark');
+    }
+  });
+}
+
+function clearMark(el){
+  el.classList.remove('invalid-mark');
+}
+
+function showError(msg){
+  const e = qs('qError');
+  qs('qErrorText').textContent = msg;
+  e.classList.add('show');
+  const nav = qs('quizNav');
+  nav.classList.remove('shake');
+  void nav.offsetWidth;
+  nav.classList.add('shake');
+}
+function hideError(){ qs('qError').classList.remove('show'); }
+
 function goNext(){
+  const miss = getMissing(step);
+  if(miss.length){
+    markMissing(step, miss);
+    let msg = 'Responda a todas as perguntas para continuar.';
+    if(step===5){
+      if(miss.indexOf('email')>-1 && A.email && A.email.trim()) msg = 'Verifique o e-mail introduzido e preencha todos os campos.';
+      else if(miss.indexOf('tel')>-1 && A.tel && A.tel.trim()) msg = 'Indique um telemóvel válido e preencha todos os campos.';
+      else msg = 'Preencha o nome, telemóvel e e-mail para receber a análise.';
+    }
+    showError(msg);
+    return;
+  }
+  hideError();
   if(step < totalSteps){
     showStep(step+1);
   } else {
+    qs('btnNext').disabled = true;
     enviarWebhook();
     gerarResultado();
   }
 }
-
 function goBack(){
   if(step>1){ showStep(step-1); }
 }
-
 function pick(el, key, val){
   if(el.parentElement){
     el.parentElement.querySelectorAll('.opt-card').forEach(c=>c.classList.remove('sel'));
+    el.parentElement.classList.remove('invalid-mark');
   }
   el.classList.add('sel');
   A[key]=val;
-
+  hideError();
   if(key==='q2t'){
-    const wrap = qs('s2q-wrap');
+    const wrapQ = qs('s2q-wrap');
+    const wrapE = qs('s2e-wrap');
+    const wrapZ = qs('s2z-wrap');
     if(val==='terreno' || val==='nenhum'){
-      wrap.style.display='none';
+      wrapQ.style.display='none';
       A.q2q=null;
     } else {
-      wrap.style.display='block';
+      wrapQ.style.display='block';
+    }
+    if(val==='nenhum'){
+      wrapE.style.display='none';
+      wrapZ.style.display='none';
+      A.q2e=null;
+      A.q2z='';
+    } else {
+      wrapE.style.display='block';
+      wrapZ.style.display='block';
     }
   }
 }
-
 function radio(el,key,val){
   const group = el.parentElement;
   group.querySelectorAll('.opt-row').forEach(r=>r.classList.remove('sel'));
+  group.classList.remove('invalid-mark');
   el.classList.add('sel');
   A[key]=val;
+  hideError();
 }
-
 function toggleCredito(show){
   const w = qs('credito-wrap');
   w.style.display = show ? 'block' : 'none';
-  if(!show){ A.q3k=null; }
+  if(!show){ A.q3k=null; const sel=qs('q3k'); if(sel){ sel.value=''; sel.classList.remove('invalid-mark'); } }
 }
-
 function mapLabel(key, val){
   const maps = {
     q1t: {apartamento:'Apartamento', moradia:'Moradia'},
@@ -1366,7 +1319,6 @@ function mapLabel(key, val){
   };
   return (maps[key] && maps[key][val]) || val || '';
 }
-
 function calcularScore(){
   let score = 5;
   if(A.q3p==='0') score -= 1;
@@ -1383,39 +1335,30 @@ function calcularScore(){
   if(score > 10) score = 10;
   return score;
 }
-
 function enviarWebhook(){
   const score = calcularScore();
   const payload = {
     timestamp: new Date().toISOString(),
     origem: 'DS Private — Simulador Troca de Casa',
     pagina_url: window.location.href,
-
     nome: A.nome,
     telemovel: A.tel,
     email: A.email,
-
     score_viabilidade: Number(score.toFixed(1)),
-
     procura_tipo: mapLabel('q1t', A.q1t),
     procura_tipologia: mapLabel('q1q', A.q1q),
     procura_zona: A.q1z,
-
     vender_tipo: mapLabel('q2t', A.q2t),
     vender_tipologia: mapLabel('q2q', A.q2q),
     vender_estado: mapLabel('q2e', A.q2e),
     vender_zona: A.q2z,
-
     tem_credito: mapLabel('q3c', A.q3c),
     capital_divida: mapLabel('q3k', A.q3k),
     capitais_proprios: mapLabel('q3p', A.q3p),
-
     prazo: mapLabel('q4p', A.q4p),
     motivo: mapLabel('q4m', A.q4m),
-
     raw: { ...A }
   };
-
   try {
     fetch(WEBHOOK_URL, {
       method: 'POST',
@@ -1429,22 +1372,17 @@ function enviarWebhook(){
     console.warn('Webhook exceção:', err);
   }
 }
-
 function gerarResultado(){
   qs('quiz').style.display='none';
   qs('resultado').style.display='block';
   window.scrollTo(0,0);
-
   const score = calcularScore();
-
   qs('rScore').textContent = score.toFixed(1).replace('.0','');
   qs('rBar').style.width = (score*10)+'%';
-
   let badgeText = 'Moderado';
   let badgeClass = 'badge-mod';
   let title = 'Há potencial para avançar, com alguns ajustes.';
   let sub = 'A análise mostra um cenário possível, mas com pontos que exigem cuidado na execução.';
-
   if(score >= 8){
     badgeText = 'Excelente';
     badgeClass = 'badge-exc';
@@ -1456,19 +1394,16 @@ function gerarResultado(){
     title = 'O cenário é favorável, com alguns pontos a afinar.';
     sub = 'Com planeamento e a estratégia adequada, tem boas condições para concretizar a mudança.';
   }
-
   qs('rBadge').textContent = badgeText;
   qs('rBadge').className = 'score-badge ' + badgeClass;
   qs('rTitle').textContent = title;
   qs('rSub').textContent = sub;
-
   let prazoLabel = 'Prazo flexível';
   if(A.q4p==='urgente') prazoLabel = 'O mais rápido possível';
   if(A.q4p==='3m') prazoLabel = 'Menos de 3 meses';
   if(A.q4p==='6m') prazoLabel = '3 a 6 meses';
   if(A.q4p==='mais6') prazoLabel = 'Mais de 6 meses';
   qs('rPrazo').textContent = prazoLabel;
-
   let motivoLabel = 'Não indicado';
   if(A.q4m==='familia') motivoLabel = 'Família e necessidade de espaço';
   if(A.q4m==='localizacao') motivoLabel = 'Mudança de zona/localização';
@@ -1476,7 +1411,6 @@ function gerarResultado(){
   if(A.q4m==='financeiro') motivoLabel = 'Gestão financeira/patrimonial';
   if(A.q4m==='outro') motivoLabel = 'Outro motivo pessoal';
   qs('rMotivo').textContent = motivoLabel;
-
   if(A.q3c==='nao'){
     qs('wNum3').textContent = '03';
     qs('wT3').textContent = 'Tire partido do facto de não ter crédito';
@@ -1488,6 +1422,5 @@ function gerarResultado(){
   }
 }
 </script>
-
 </body>
 </html>
